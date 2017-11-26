@@ -29,7 +29,7 @@ TO-DO:
 
 Machine Learning:
 
-| Function | Packages | --- |
+| Function | Packages | Description |
 | :--- | :--- | :--- |
 | xgb.wrap.loss | xgboost | Wrapper to make quick xgboost loss function. |
 | xgb.wrap.metric | xgboost | Wrapper to make quick xgboost metric function. |
@@ -38,14 +38,14 @@ Machine Learning:
 
 I/O functions:
 
-| Function | Packages | --- |
+| Function | Packages | Description |
 | :--- | :--- | :--- |
 | sparse.read | sparsio, Matrix | Reads SVMLight file format (sparse matrices) |
 | sparse.write | sparsio, Matrix | Writes SVMLight file format (sparse matrices) |
 
 Fold functions:
 
-| Function | Packages | --- |
+| Function | Packages | Description |
 | :--- | :--- | :--- |
 | kfold | | Generate folds (stratified, treatment, pseudo-random, random) |
 | nkfold | | Generate Repeated folds (stratified, treatment, pseudo-random, random) |

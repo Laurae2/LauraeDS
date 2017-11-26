@@ -5,7 +5,7 @@
 #' @param y Type: The label vector.
 #' @param n Type: integer. The amount of repeated fold computations to perform. Defaults to \code{2}.
 #' @param k Type: integer or vector of integers. The amount of folds to create. Causes issues if \code{length(y) < k} (e.g more folds than samples). If a vector of integers is supplied, then for each k-fold in the repeat N, k[N] is selected as the number of folds. Defaults to \code{5}.
-#' @param type Type: character. Whether the folds should be \code{stratified} (keep the same label proportions for classification), \code{treatment} (make each fold exclusive according to the label vector which becomes a vector), \code{pseudo} (pseudo-random, attempts to minimize the variance between folds for regression), or \code{random} (for fully random folds). Defaults to \code{random}.
+#' @param type Type: character or vector of characters. Whether the folds should be \code{stratified} (keep the same label proportions for classification), \code{treatment} (make each fold exclusive according to the label vector which becomes a vector), \code{pseudo} (pseudo-random, attempts to minimize the variance between folds for regression), or \code{random} (for fully random folds). If a vector of characters is supplied, then for each k-fold in the repeat N, k[N] is selected type of generating folds. Defaults to \code{random}.
 #' @param seed Type: integer or vector of integers. The seed for the random number generator. If a vector of integer is provided, its length should be at least longer than \code{n}. Otherwise (if an integer is supplied), it starts each fold with the provided seed, and adds 1 to the seed for every repeat. Defaults to \code{0}.
 #' @param named Type: boolean. Whether the folds should be named. Defaults to \code{TRUE}.
 #' @param weight Type: boolean. Whether to return the weights of each fold so their sum is equal to \code{1}. Defaults to \code{TRUE}.
@@ -143,6 +143,34 @@
 #' # $ Rep3Fold09: int [1:75] 258 81 251 170 510 105 41 167 471 389 ...
 #' # $ Rep3Fold10: int [1:75] 596 654 741 442 127 406 99 432 215 77 ...
 #' 
+#' # Stratified Repeated 3-5 fold Cross-Validation all in one
+#' # with different types
+#' data <- c(rep(0, 250), rep(1, 250), rep(2, 250))
+#' str(nkfold(data, n = 2, k = c(3, 5), type = c("random", "stratified")))
+#' # List of 8
+#' # $ Rep1Fold1: int [1:250] 673 199 279 428 678 151 669 702 491 467 ...
+#' # $ Rep1Fold2: int [1:250] 709 574 700 351 448 362 76 183 371 265 ...
+#' # $ Rep1Fold3: int [1:250] 30 411 529 492 497 358 720 305 617 559 ...
+#' # $ Rep2Fold1: int [1:150] 6 7 8 11 25 28 30 34 42 51 ...
+#' # $ Rep2Fold2: int [1:150] 1 14 15 16 18 26 31 32 40 46 ...
+#' # $ Rep2Fold3: int [1:150] 2 3 9 12 17 27 33 38 41 43 ...
+#' # $ Rep2Fold4: int [1:150] 13 19 22 23 24 29 35 36 39 54 ...
+#' # $ Rep2Fold5: int [1:150] 4 5 10 20 21 37 44 45 47 50 ...
+#' 
+#' # Stratified Repeated 3-5 fold Cross-Validation all in one
+#' # with different seeds
+#' data <- c(rep(0, 250), rep(1, 250), rep(2, 250))
+#' str(nkfold(data, n = 2, k = c(3, 5), type = "random", seed = c(0, 10)))
+#' # List of 8
+#' # $ Rep1Fold1: int [1:250] 673 199 279 428 678 151 669 702 491 467 ...
+#' # $ Rep1Fold2: int [1:250] 709 574 700 351 448 362 76 183 371 265 ...
+#' # $ Rep1Fold3: int [1:250] 30 411 529 492 497 358 720 305 617 559 ...
+#' # $ Rep2Fold1: int [1:150] 381 230 320 518 64 168 205 203 457 319 ...
+#' # $ Rep2Fold2: int [1:150] 669 153 54 119 256 137 109 223 699 80 ...
+#' # $ Rep2Fold3: int [1:150] 266 4 296 430 661 526 144 282 744 618 ...
+#' # $ Rep2Fold4: int [1:150] 592 694 397 21 701 272 519 210 667 7 ...
+#' # $ Rep2Fold5: int [1:150] 690 598 573 409 208 222 602 127 391 436 ...
+#' 
 #' @export
 
 nkfold <- function(y, n = 2, k = 5, type = "random", seed = 0, named = TRUE, weight = FALSE) {
@@ -158,7 +186,7 @@ nkfold <- function(y, n = 2, k = 5, type = "random", seed = 0, named = TRUE, wei
     list_weight <- numeric(0)
     nmind <- 0
     for (i in 1:n) {
-      folded <- kfold(y = y, k = k[i], type = type, seed = ifelse(length(seed) == 1, seed + i - 1, seed[i]), named = FALSE)
+      folded <- kfold(y = y, k = k[i], type = ifelse(length(type) == 1, type, type[i]), seed = ifelse(length(seed) == 1, seed + i - 1, seed[i]), named = FALSE)
       for (j in 1:k[i]) {
         nmind <- nmind + 1
         folds[[length(folds) + 1]] <- folded[[j]]
@@ -172,7 +200,7 @@ nkfold <- function(y, n = 2, k = 5, type = "random", seed = 0, named = TRUE, wei
   } else {
     
     for (i in 1:n) {
-      folded <- kfold(y = y, k = k[i], type = type, seed = ifelse(length(seed) == 1, seed + i - 1, seed[i]), named = FALSE)
+      folded <- kfold(y = y, k = k[i], type = ifelse(length(type) == 1, type, type[i]), seed = ifelse(length(seed) == 1, seed + i - 1, seed[i]), named = FALSE)
       for (j in 1:k[i]) {
         folds[[length(folds) + 1]] <- folded[[j]]
         names(folds)[length(folds)] <- paste("Rep", sprintf(paste("%0", floor(log10(n) + 1), "d", sep = ""), i), "Fold", sprintf(paste("%0", floor(log10(max(k)) + 1), "d", sep = ""), j), sep = "")
