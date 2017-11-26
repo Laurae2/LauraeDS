@@ -1,0 +1,17 @@
+Package: LauraeDS
+Type: Package
+Title: Laurae's Data Science Package
+Version: 1.0.20171126
+Date: 2017-11-26
+Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
+Depends: 
+	R (>= 3.3.0),
+Imports:
+	xgboost,
+	lightgbm,
+	Matrix,
+	sparsio
+Description: Laurae's Data Science Package
+License: I'm not liable for anything
+NeedsCompilation: no
+RoxygenNote: 6.0.1
