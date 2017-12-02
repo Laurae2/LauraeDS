@@ -31,7 +31,7 @@ parallel.csv <- function(file, compress = 35, max_threads = parallel::detectCore
     # Read from current process
     pbapply::pblapply(file, function(x) {
       
-      my_table <- data.table::fread(x, nThread = max_threads, showProgress = TRUE)
+      my_table <- data.table::fread(x)
       fst::write.fst(my_table, path = paste0(substr(x, 1, nchar(x) - 4), ".fst"), compress = compress, ...)
       return(NULL)
       
@@ -42,7 +42,7 @@ parallel.csv <- function(file, compress = 35, max_threads = parallel::detectCore
     # Read from current process
     lapply(file, function(x) {
       
-      my_table <- data.table::fread(x, nThread = max_threads)
+      my_table <- data.table::fread(x)
       fst::write.fst(my_table, path = paste0(substr(x, 1, nchar(x) - 4), ".fst"), compress = compress, ...)
       return(NULL)
       

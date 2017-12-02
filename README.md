@@ -13,7 +13,8 @@ devtools::install_github("Laurae2/LauraeDS")
 Dependencies installation:
 
 ```r
-install.packages(c("Matrix", "sparsio", "data.table", "fst", "pbapply", "parallel"))
+install.packages(c("Matrix", "sparsio", "fst", "data.table", "pbapply", "parallel"))
+devtools::install_github("fstpackage/fst@e060e62")
 devtools::install_github("Laurae2/ez_xgb/R-package@2017-02-15-v1")
 devtools::install_github("Microsoft/LightGBM/R-package@fc59fce") # Jul 14 2017, v2.0.4
 
