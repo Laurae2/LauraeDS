@@ -10,7 +10,8 @@ Imports:
 	xgboost,
 	lightgbm,
 	Matrix,
-	sparsio
+	sparsio,
+	pbapply
 Description: Laurae's Data Science Package
 License: I'm not liable for anything
 NeedsCompilation: no
