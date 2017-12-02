@@ -6,6 +6,7 @@
 #' @param compress Type: numeric. Compression rate to use. Defaults to \code{35}.
 #' @param max_threads Type: numeric. The maximum number of threads allowed to adapt \code{fst::threads_fst}. Defaults to \code{parallel::detectCores()}.
 #' @param progress_bar Type: logical. Whether to print a progress bar. Defaults to \code{TRUE}.
+#' @param clean_mem Type: logical. Whether the force garbage collection at the end of each file read in order to reclaim RAM. Defaults to \code{FALSE}.
 #' @param ... Other arguments to pass to \code{fst::write.fst}.
 #' 
 #' @return The element or the list of \code{fst} file names.
@@ -22,7 +23,7 @@
 #' 
 #' @export
 
-parallel.csv <- function(file, compress = 35, max_threads = parallel::detectCores(), progress_bar = TRUE, ...) {
+parallel.csv <- function(file, compress = 35, max_threads = parallel::detectCores(), progress_bar = TRUE, clean_mem = FALSE, ...) {
   
   fst::threads_fst(nr_of_threads = max_threads)
   
@@ -33,6 +34,7 @@ parallel.csv <- function(file, compress = 35, max_threads = parallel::detectCore
       
       my_table <- data.table::fread(x)
       fst::write.fst(my_table, path = paste0(substr(x, 1, nchar(x) - 4), ".fst"), compress = compress, ...)
+      if (clean_mem) {gc(verbose = FALSE)}
       return(NULL)
       
     })
@@ -44,6 +46,7 @@ parallel.csv <- function(file, compress = 35, max_threads = parallel::detectCore
       
       my_table <- data.table::fread(x)
       fst::write.fst(my_table, path = paste0(substr(x, 1, nchar(x) - 4), ".fst"), compress = compress, ...)
+      if (clean_mem) {gc(verbose = FALSE)}
       return(NULL)
       
     })

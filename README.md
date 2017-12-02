@@ -25,7 +25,7 @@ devtools::install_github("Microsoft/LightGBM/R-package@fc59fce") # Jul 14 2017, 
 ## TO-DO
 
 - [] add parallel handling (cluster, run parallel xgboost, run parallel LightGBM
-- [] GLM (xgboost), Random Forest (xgboost, LightGBM), Graident Boosted Trees (xgboost, LightGBM)
+- [] GLM (xgboost), Random Forest (xgboost, LightGBM), Gradient Boosted Trees (xgboost, LightGBM)
 - [] grid learning ("grid search")
 - [] Random Patches feature generation (Subsampling + Colsampling from feature groups)
 - [] stacker

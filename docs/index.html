@@ -59,7 +59,8 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"Laurae2/LauraeDS"</span>)</code></pre></div>
 <p>Dependencies installation:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">"Matrix"</span>, <span class="st">"sparsio"</span>, <span class="st">"data.table"</span>, <span class="st">"fst"</span>, <span class="st">"pbapply"</span>, <span class="st">"parallel"</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">"Matrix"</span>, <span class="st">"sparsio"</span>, <span class="st">"fst"</span>, <span class="st">"data.table"</span>, <span class="st">"pbapply"</span>, <span class="st">"parallel"</span>))
+devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"fstpackage/fst@e060e62"</span>)
 devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"Laurae2/ez_xgb/R-package@2017-02-15-v1"</span>)
 devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"Microsoft/LightGBM/R-package@fc59fce"</span>) <span class="co"># Jul 14 2017, v2.0.4</span></code></pre></div>
 <hr>
@@ -69,7 +70,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <a href="#to-do" class="anchor"></a>TO-DO</h2>
 <ul>
 <li>[] add parallel handling (cluster, run parallel xgboost, run parallel LightGBM</li>
-<li>[] GLM (xgboost), Random Forest (xgboost, LightGBM), Graident Boosted Trees (xgboost, LightGBM)</li>
+<li>[] GLM (xgboost), Random Forest (xgboost, LightGBM), Gradient Boosted Trees (xgboost, LightGBM)</li>
 <li>[] grid learning (“grid search”)</li>
 <li>[] Random Patches feature generation (Subsampling + Colsampling from feature groups)</li>
 <li>[] stacker</li>

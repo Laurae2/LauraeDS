@@ -5,7 +5,7 @@
 \title{Parallel CSV Converter}
 \usage{
 parallel.csv(file, compress = 35, max_threads = parallel::detectCores(),
-  progress_bar = TRUE, ...)
+  progress_bar = TRUE, clean_mem = FALSE, ...)
 }
 \arguments{
 \item{file}{Type: vector of characters. Path to all files to read.}
@@ -15,6 +15,8 @@ parallel.csv(file, compress = 35, max_threads = parallel::detectCores(),
 \item{max_threads}{Type: numeric. The maximum number of threads allowed to adapt \code{fst::threads_fst}. Defaults to \code{parallel::detectCores()}.}
 
 \item{progress_bar}{Type: logical. Whether to print a progress bar. Defaults to \code{TRUE}.}
+
+\item{clean_mem}{Type: logical. Whether the force garbage collection at the end of each file read in order to reclaim RAM. Defaults to \code{FALSE}.}
 
 \item{...}{Other arguments to pass to \code{fst::write.fst}.}
 }

@@ -83,7 +83,7 @@
     
 
     <pre class="usage"><span class='fu'>parallel.csv</span>(<span class='no'>file</span>, <span class='kw'>compress</span> <span class='kw'>=</span> <span class='fl'>35</span>, <span class='kw'>max_threads</span> <span class='kw'>=</span> <span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/parallel/topics/detectCores'>detectCores</a></span>(),
-  <span class='kw'>progress_bar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>progress_bar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>clean_mem</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -103,6 +103,10 @@
     <tr>
       <th>progress_bar</th>
       <td><p>Type: logical. Whether to print a progress bar. Defaults to <code>TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>clean_mem</th>
+      <td><p>Type: logical. Whether the force garbage collection at the end of each file read in order to reclaim RAM. Defaults to <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
