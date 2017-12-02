@@ -2,6 +2,7 @@
 
 export(Laurae.lgb.dmat)
 export(Laurae.xgb.dmat)
+export(Laurae.xgb.train)
 export(kfold)
 export(lgb.wrap.loss)
 export(lgb.wrap.metric)

@@ -70,6 +70,16 @@ Generating binary matrices never got easier if you can throw lists and data.fram
 
 ---
 
+### Machine Learning, Supervised
+
+Not remembering every existing hyperparameters? Now you can by pressing Tab to autocomplete hyperparameters.
+
+| Function | Packages | Description |
+| :--- | :--- | :--- |
+| Laurae.xgb.train | xgboost, Matrix | Wrapper for xgboost Models |
+
+---
+
 ### Machine Learning, Loss/Metrics Helpers
 
 Creating loss/metrics can be a tedious task without templates. Use these as template wrappers: focus on loss/metrics, wrap them with a template quickly.
