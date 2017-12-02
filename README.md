@@ -13,7 +13,7 @@ devtools::install_github("Laurae2/LauraeDS")
 Dependencies installation:
 
 ```r
-install.packages(c("Matrix", "sparsio"))
+install.packages(c("Matrix", "sparsio", "data.table", "fst", "pbapply", "parallel"))
 devtools::install_github("Laurae2/ez_xgb/R-package@2017-02-15-v1")
 devtools::install_github("Microsoft/LightGBM/R-package@fc59fce") # Jul 14 2017, v2.0.4
 
@@ -42,6 +42,7 @@ I/O Functions allows to read files from sparse matrices quickly.
 
 | Function | Packages | Description |
 | :--- | :--- | :--- |
+| parallel.csv | data.table, fst | Multithreads the reading of CSV files and writes to fst file format for fast reading. |
 | sparse.read | sparsio, Matrix | Reads SVMLight file format (sparse matrices) |
 | sparse.write | sparsio, Matrix | Writes SVMLight file format (sparse matrices) |
 
@@ -53,8 +54,8 @@ Fold functions allow to generate folds for cross-validation very quickly.
 
 | Function | Packages | Description |
 | :--- | :--- | :--- |
-| kfold | | Generate cross-validated folds (stratified, treatment, pseudo-random, random) |
-| nkfold | | Generate Repeated cross-validated folds (stratified, treatment, pseudo-random, random) |
+| kfold | None | Generate cross-validated folds (stratified, treatment, pseudo-random, random) |
+| nkfold | None | Generate Repeated cross-validated folds (stratified, treatment, pseudo-random, random) |
 
 ---
 

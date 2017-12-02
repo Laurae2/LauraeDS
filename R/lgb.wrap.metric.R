@@ -1,6 +1,6 @@
 #' LightGBM evaluation metric wrapper
 #' 
-#' The wrapper works only if both the wrapper and the original evaluation metric are existing.
+#' The wrapper works only if both the wrapper and the original evaluation metric are existing. Requires \code{Matrix} and \code{lightgbm} packages.
 #' 
 #' @param f Type: function. The function to wrap from LightGBM. Requires the following order of arguments for the function to work: \code{preds, labels}, and returns a single value.
 #' @param name Type: character. The evaluation metric name which is printed and used for LightGBM variables.
@@ -9,7 +9,10 @@
 #' @return The wrapping function.
 #' 
 #' @examples
+#' # Note: this example unexpectedly fails when using pkgdown.
+#' 
 #' library(lightgbm)
+#' library(Matrix)
 #' data(agaricus.train, package = "lightgbm")
 #' train <- agaricus.train
 #' dtrain <- lgb.Dataset(train$data, label = train$label)
@@ -27,8 +30,6 @@
 #'                 nfold = 5,
 #'                 objective = "regression",
 #'                 eval = evalerror_wrap)
-#' # [1]:	valid's mae:1.19113e-08+3.07441e-09 
-#' # [2]:	valid's mae:2.18733e-16+1.80747e-16
 #' 
 #' @export
 

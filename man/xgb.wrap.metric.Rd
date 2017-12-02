@@ -15,9 +15,13 @@ xgb.wrap.metric(f, name)
 The wrapping function.
 }
 \description{
-The wrapper works only if both the wrapper and the original evaluation metric are existing.
+The wrapper works only if both the wrapper and the original evaluation metric are existing. Requires \code{Matrix} and \code{xgboost} packages.
 }
 \examples{
+# Note: this example unexpectedly fails when using pkgdown.
+
+library(xgboost)
+library(Matrix)
 data(agaricus.train, package = "xgboost")
 data(agaricus.test, package = "xgboost")
 
@@ -33,7 +37,5 @@ evalerror_wrap <- xgb.wrap.metric(f = evalerror, "mae")
 param <- list(max_depth = 2, eta = 1, silent = 1, nthread = 1, 
               objective = "binary:logistic", eval_metric = evalerror_wrap)
 bst <- xgboost::xgb.train(param, dtrain, nrounds = 2, watchlist)
-# [1]	train-mae:0.173867	eval-mae:0.171027 
-# [2]	train-mae:0.097500	eval-mae:0.097139 
 
 }

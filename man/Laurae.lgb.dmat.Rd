@@ -28,10 +28,7 @@ Laurae.lgb.dmat(data, label, missing = NA, save_names = NULL,
 The lgb.Dataset
 }
 \description{
-Geneartes a (list of) lgb.Dataset. Unsupported for clusters.
-}
-\details{
-Requires \code{Matrix} and \code{lightgbm} packages.
+Geneartes a (list of) lgb.Dataset. Unsupported for clusters. Requires \code{Matrix} and \code{lightgbm} packages.
 }
 \examples{
 library(Matrix)
@@ -58,7 +55,6 @@ lgb_from_list <- Laurae.lgb.dmat(data = random_list,
                                  missing = NA,
                                  progress_bar = TRUE,
                                  clean_mem = TRUE)
-#    |++++++++++++++++++++++++++++++++++++++++++++++++++| 100\% elapsed = 00s
 
 # Generate lgb.Dataset from respective elements of a list and keep only first
 # while keeping memory usage as low as theoretically possible

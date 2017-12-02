@@ -1,8 +1,6 @@
 #' xgboost DMatrix generation
 #' 
-#' Geneartes a (list of) xgb.DMatrix. Supported for clusters.
-#' 
-#' Requires \code{Matrix} and \code{xgboost} packages.
+#' Geneartes a (list of) xgb.DMatrix. Supported for clusters. Requires \code{Matrix} and \code{xgboost} packages.
 #' 
 #' @param data Type: matrix or dgCMatrix or data.frame or data.table or filename, or potentially a list of any of them. When a list is provided, it generates the appropriate \code{xgb.DMatrix} for all the sets. The data to convert to \code{xgb.DMatrix}. RAM usage required is 2x the current \code{data} input RAM usage, and 3x for \code{data.frame} and \code{data.table} due to internal matrix conversion added before binary matrix generation.
 #' @param label Type: numeric, or a list of numeric. The label of associated rows in \code{data}.
@@ -40,7 +38,6 @@
 #'                                  missing = NA,
 #'                                  progress_bar = TRUE,
 #'                                  clean_mem = TRUE)
-#' #    |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed = 00s
 #' 
 #' # Generate xgb.DMatrix from respective elements of a list and keep only first
 #' # while keeping memory usage as low as theoretically possible

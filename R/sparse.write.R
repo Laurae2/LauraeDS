@@ -1,8 +1,6 @@
 #' SVMLight file writer
 #' 
-#' Writes SVMLight sparse matrix file format.
-#' 
-#' Requires \code{Matrix} and \code{sparsio} packages.
+#' Writes SVMLight sparse matrix file format. Requires \code{Matrix} and \code{sparsio} packages.
 #' 
 #' @param file Type: character. Path to your SVMLight file.
 #' @param x Type: any supported sparse matrix. The sparse matrix to write as SVMLight file format. Defaults to \code{numeric(nrow(x))}.

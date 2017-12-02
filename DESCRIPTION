@@ -6,12 +6,15 @@ Date: 2017-11-26
 Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
 Depends: 
 	R (>= 3.3.0),
+	data.table
 Imports:
 	xgboost,
 	lightgbm,
 	Matrix,
 	sparsio,
-	pbapply
+	fst,
+	pbapply,
+	parallel
 Description: Laurae's Data Science Package
 License: I'm not liable for anything
 NeedsCompilation: no

@@ -13,16 +13,19 @@ lgb.wrap.loss(f)
 The wrapping function.
 }
 \description{
-The wrapper works only if both the wrapper and the original loss metric are existing.
+The wrapper works only if both the wrapper and the original loss metric are existing. Requires \code{Matrix} and \code{lightgbm} packages.
 }
 \examples{
+# Note: this example unexpectedly fails when using pkgdown.
+
 library(lightgbm)
+library(Matrix)
 data(agaricus.train, package = "lightgbm")
 train <- agaricus.train
 dtrain <- lgb.Dataset(train$data, label = train$label)
 
 cross_entropy <- function(preds, labels) {
-  preds <- 1/(1 + exp(-preds))
+  preds <- 1 / (1 + exp(-preds))
   grad <- preds - labels
   hess <- preds * (1 - preds)
   return(list(grad = grad, hess = hess))
@@ -37,7 +40,5 @@ model <- lgb.cv(params,
                 nfold = 5,
                 obj = cross_entropy_wrap,
                 metric = "auc")
-# [1]:	valid's auc:1+0 
-# [2]:	valid's auc:1+0
 
 }

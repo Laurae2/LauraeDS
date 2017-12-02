@@ -1,6 +1,6 @@
 #' xgboost evaluation metric wrapper
 #' 
-#' The wrapper works only if both the wrapper and the original evaluation metric are existing.
+#' The wrapper works only if both the wrapper and the original evaluation metric are existing. Requires \code{Matrix} and \code{xgboost} packages.
 #' 
 #' @param f Type: function. The function to wrap from xgboost. Requires the following order of arguments for the function to work: \code{preds, labels}, and returns a single value.
 #' @param name Type: character. The evaluation metric name which is printed and used for xgboost variables.
@@ -8,6 +8,10 @@
 #' @return The wrapping function.
 #' 
 #' @examples
+#' # Note: this example unexpectedly fails when using pkgdown.
+#' 
+#' library(xgboost)
+#' library(Matrix)
 #' data(agaricus.train, package = "xgboost")
 #' data(agaricus.test, package = "xgboost")
 #' 
@@ -23,8 +27,6 @@
 #' param <- list(max_depth = 2, eta = 1, silent = 1, nthread = 1, 
 #'               objective = "binary:logistic", eval_metric = evalerror_wrap)
 #' bst <- xgboost::xgb.train(param, dtrain, nrounds = 2, watchlist)
-#' # [1]	train-mae:0.173867	eval-mae:0.171027 
-#' # [2]	train-mae:0.097500	eval-mae:0.097139 
 #' 
 #' @export
 

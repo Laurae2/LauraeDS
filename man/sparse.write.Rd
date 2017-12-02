@@ -19,10 +19,7 @@ sparse.write(file, x, y = numeric(nrow(x)), zero_based = TRUE)
 TRUE when the function returns.
 }
 \description{
-Writes SVMLight sparse matrix file format.
-}
-\details{
-Requires \code{Matrix} and \code{sparsio} packages.
+Writes SVMLight sparse matrix file format. Requires \code{Matrix} and \code{sparsio} packages.
 }
 \examples{
 library(Matrix)

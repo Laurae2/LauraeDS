@@ -19,10 +19,7 @@ sparse.read(file, type = "CsparseMatrix", zero_based = TRUE, ncol = NULL)
 The data from the SVMLight file.
 }
 \description{
-Reads SVMLight sparse matrix file format.
-}
-\details{
-Requires \code{Matrix} and \code{sparsio} packages.
+Reads SVMLight sparse matrix file format. Requires \code{Matrix} and \code{sparsio} packages.
 }
 \examples{
 library(Matrix)

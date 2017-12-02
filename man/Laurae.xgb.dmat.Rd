@@ -28,10 +28,7 @@ Laurae.xgb.dmat(data, label, missing = NA, save_names = NULL,
 The xgb.DMatrix
 }
 \description{
-Geneartes a (list of) xgb.DMatrix. Supported for clusters.
-}
-\details{
-Requires \code{Matrix} and \code{xgboost} packages.
+Geneartes a (list of) xgb.DMatrix. Supported for clusters. Requires \code{Matrix} and \code{xgboost} packages.
 }
 \examples{
 library(Matrix)
@@ -58,7 +55,6 @@ xgb_from_list <- Laurae.xgb.dmat(data = random_list,
                                  missing = NA,
                                  progress_bar = TRUE,
                                  clean_mem = TRUE)
-#    |++++++++++++++++++++++++++++++++++++++++++++++++++| 100\% elapsed = 00s
 
 # Generate xgb.DMatrix from respective elements of a list and keep only first
 # while keeping memory usage as low as theoretically possible

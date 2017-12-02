@@ -1,8 +1,6 @@
 #' SVMLight file reader
 #' 
-#' Reads SVMLight sparse matrix file format.
-#' 
-#' Requires \code{Matrix} and \code{sparsio} packages.
+#' Reads SVMLight sparse matrix file format. Requires \code{Matrix} and \code{sparsio} packages.
 #' 
 #' @param file Type: character. Path to your SVMLight file.
 #' @param type Type: character. The matrix output type, which can be \code{CsparseMatrix}, \code{RsparseMatrix}, \code{TsparseMatrix}. Defaults to \code{CsparseMatrix}.

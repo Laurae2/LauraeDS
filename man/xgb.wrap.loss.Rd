@@ -13,18 +13,22 @@ xgb.wrap.loss(f)
 The wrapping function.
 }
 \description{
-The wrapper works only if both the wrapper and the original loss metric are existing.
+The wrapper works only if both the wrapper and the original loss metric are existing. Requires \code{Matrix} and \code{xgboost} packages.
 }
 \examples{
+# Note: this example unexpectedly fails when using pkgdown.
+
+library(xgboost)
+library(Matrix)
 data(agaricus.train, package = "xgboost")
-data(agaricus.test, package ="xgboost")
+data(agaricus.test, package = "xgboost")
 
 dtrain <- xgboost::xgb.DMatrix(agaricus.train$data, label = agaricus.train$label)
 dtest <- xgboost::xgb.DMatrix(agaricus.test$data, label = agaricus.test$label)
 watchlist <- list(train = dtrain, eval = dtest)
 
 cross_entropy <- function(preds, labels) {
-  preds <- 1/(1 + exp(-preds))
+  preds <- 1 / (1 + exp(-preds))
   grad <- preds - labels
   hess <- preds * (1 - preds)
   return(list(grad = grad, hess = hess))
@@ -34,7 +38,7 @@ cross_entropy_wrap <- xgb.wrap.loss(f = cross_entropy)
 param <- list(max_depth = 2, eta = 1, silent = 1, nthread = 1, 
               objective = cross_entropy_wrap, eval_metric = "auc")
 bst <- xgboost::xgb.train(param, dtrain, nrounds = 2, watchlist)
-# [1]	train-auc:0.958228	eval-auc:0.960373 
-# [2]	train-auc:0.981413	eval-auc:0.979930 
+
+# Note: this example unexpectedly fails when using pkgdown.
 
 }

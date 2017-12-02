@@ -18,17 +18,10 @@
 #' folds1 <- kfold(y = data, k = 5, type = "pseudo", seed = 111)
 #' folds2 <- kfold(y = data, k = 5, type = "pseudo", seed = 111)
 #' identical(folds1, folds2)
-#' # [1] TRUE
 #' 
 #' # Treatments
 #' data <- c(rep(1:50, rep(50, 50)))
 #' str(kfold(y = data, k = 5, type = "treatment"))
-#' # List of 5
-#' # $ Fold1: int [1:500] 451 452 453 454 455 456 457 458 459 460 ...
-#' # $ Fold2: int [1:500] 101 102 103 104 105 106 107 108 109 110 ...
-#' # $ Fold3: int [1:500] 1 2 3 4 5 6 7 8 9 10 ...
-#' # $ Fold4: int [1:500] 151 152 153 154 155 156 157 158 159 160 ...
-#' # $ Fold5: int [1:500] 51 52 53 54 55 56 57 58 59 60 ...
 #' 
 #' # Stratified Classification
 #' data <- c(rep(0, 250), rep(1, 250))
@@ -36,11 +29,6 @@
 #' for (i in 1:length(folds)) {
 #'   print(mean(data[folds[[i]]]))
 #' }
-#' # [1] 0.5
-#' # [1] 0.5
-#' # [1] 0.5
-#' # [1] 0.5
-#' # [1] 0.5
 #' 
 #' # Stratified Regression
 #' data <- 1:5000
@@ -48,11 +36,6 @@
 #' for (i in 1:length(folds)) {
 #'   print(mean(data[folds[[i]]]))
 #' }
-#' # [1] 2504.919
-#' # [1] 2483.742
-#' # [1] 2496.716
-#' # [1] 2500.756
-#' # [1] 2516.367
 #' 
 #' # Stratified Multi-class Classification
 #' data <- c(rep(0, 250), rep(1, 250), rep(2, 250))
@@ -60,11 +43,6 @@
 #' for (i in 1:length(folds)) {
 #'   print(mean(data[folds[[i]]]))
 #' }
-#' # [1] 1
-#' # [1] 1
-#' # [1] 1
-#' # [1] 1
-#' # [1] 1
 #' 
 #' # Unstratified Regression
 #' data <- 1:5000
@@ -72,11 +50,6 @@
 #' for (i in 1:length(folds)) {
 #'   print(mean(data[folds[[i]]]))
 #' }
-#' # [1] 2527.465
-#' # [1] 2446.88
-#' # [1] 2518.532
-#' # [1] 2502.391
-#' # [1] 2507.232
 #' 
 #' # Unstratified Multi-class Classification
 #' data <- c(rep(0, 250), rep(1, 250), rep(2, 250))
@@ -84,11 +57,6 @@
 #' for (i in 1:length(folds)) {
 #'   print(mean(data[folds[[i]]]))
 #' }
-#' # [1] 0.9866667
-#' # [1] 0.96
-#' # [1] 1.066667
-#' # [1] 0.92
-#' # [1] 1.066667
 #' 
 #' @export
 
