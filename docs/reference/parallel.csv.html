@@ -82,8 +82,10 @@
     <p>Parallelizes the writing of separate CSV files (still sequential reading) in order to store them in <code>fst</code> format (also, overwrites <code><a href='http://www.rdocumentation.org/packages/fst/topics/threads_fst'>fst::threads_fst</a></code>. Requires <code>data.table</code> and <code>fst</code> packages.</p>
     
 
-    <pre class="usage"><span class='fu'>parallel.csv</span>(<span class='no'>file</span>, <span class='kw'>compress</span> <span class='kw'>=</span> <span class='fl'>35</span>, <span class='kw'>max_threads</span> <span class='kw'>=</span> <span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/parallel/topics/detectCores'>detectCores</a></span>(),
-  <span class='kw'>progress_bar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>clean_mem</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>parallel.csv</span>(<span class='no'>file</span>, <span class='kw'>compress</span> <span class='kw'>=</span> <span class='fl'>35</span>, <span class='kw'>progress_bar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>clean_mem</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>cl</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>max_threads</span> <span class='kw'>=</span> <span class='fu'>max</span>(<span class='fu'>ifelse</span>(<span class='fu'>is.null</span>(<span class='no'>cl</span>), <span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/parallel/topics/detectCores'>detectCores</a></span>(),
+  <span class='fu'>ifelse</span>(!<span class='fu'>is.list</span>(<span class='no'>cl</span>), <span class='fu'>round</span>(<span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/parallel/topics/detectCores'>detectCores</a></span>()/<span class='no'>cl</span>),
+  <span class='fu'>round</span>(<span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/parallel/topics/detectCores'>detectCores</a></span>()/<span class='fu'>length</span>(<span class='no'>cl</span>)))), <span class='fl'>1</span>), <span class='kw'>wkdir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -97,16 +99,24 @@
       <td><p>Type: numeric. Compression rate to use. Defaults to <code>35</code>.</p></td>
     </tr>
     <tr>
-      <th>max_threads</th>
-      <td><p>Type: numeric. The maximum number of threads allowed to adapt <code><a href='http://www.rdocumentation.org/packages/fst/topics/threads_fst'>fst::threads_fst</a></code>. Defaults to <code><a href='http://www.rdocumentation.org/packages/parallel/topics/detectCores'>parallel::detectCores()</a></code>.</p></td>
-    </tr>
-    <tr>
       <th>progress_bar</th>
       <td><p>Type: logical. Whether to print a progress bar. Defaults to <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>clean_mem</th>
       <td><p>Type: logical. Whether the force garbage collection at the end of each file read in order to reclaim RAM. Defaults to <code>FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>cl</th>
+      <td><p>Type: cluster or integer. A parallel cluster for parallelized calls. Used only when <code>progress_bar = TRUE</code>. Writes to the cluster most of the variables (<code>compress</code>, <code>max_threads</code>, <code>clean_mem</code>, <code>wkdir</code>) and removes them at the end. When it is a number, creates and destroys a cluster with the specified number of parallel clusters. Defaults to <code>NULL</code>.</p></td>
+    </tr>
+    <tr>
+      <th>max_threads</th>
+      <td><p>Type: numeric. The maximum number of threads allowed to adapt <code><a href='http://www.rdocumentation.org/packages/fst/topics/threads_fst'>fst::threads_fst</a></code>. Make sure the result of <code>cl</code> cores multiplicated by <code>max_threads</code> is not bigger than the number of threads in your computer. Defaults to <code>max(ifelse(is.null(cl), parallel::detectCores(), ifelse(!is.list(cl), round(parallel::detectCores() / cl), round(parallel::detectCores() / length(cl)))), 1)</code>, which means at least 1 thread, and adjust automatically the number of threads depending on the number of cores per cluster. Note that it takes the rounded value, which might over and under allocate threads.</p></td>
+    </tr>
+    <tr>
+      <th>wkdir</th>
+      <td><p>Type: character. The working directory, when using a cluster. Defaults to <code>NULL</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -126,6 +136,7 @@
 # library(parallel)
 # 
 # parallel.csv(c("file_1.csv", "file_2.csv"), max_threads = 1, progress_bar = TRUE)
+# parallel.csv(paste0("file_", 1:100, ".csv"), max_threads = 1, progress_bar = TRUE, cl = 8)
 
 </div></pre>
   </div>

@@ -24,12 +24,13 @@ devtools::install_github("Microsoft/LightGBM/R-package@fc59fce") # Jul 14 2017, 
 
 ## TO-DO
 
-- [] add parallel handling (cluster, run parallel xgboost, run parallel LightGBM
-- [] GLM (xgboost), Random Forest (xgboost, LightGBM), Gradient Boosted Trees (xgboost, LightGBM)
-- [] grid learning ("grid search")
-- [] Random Patches feature generation (Subsampling + Colsampling from feature groups)
-- [] stacker
-- [] add lot of stuff
+* [x] add parallel fast csv/fst converter
+* [ ] add parallel handling (cluster, run parallel xgboost, run parallel LightGBM
+* [ ] GLM (xgboost), Random Forest (xgboost, LightGBM), Gradient Boosted Trees (xgboost, LightGBM)
+* [ ] grid learning ("grid search")
+* [ ] Random Patches feature generation (Subsampling + Colsampling from feature groups)
+* [ ] stacker
+* [ ] add lot of stuff
 
 ---
 
@@ -43,7 +44,7 @@ I/O Functions allows to read files from sparse matrices quickly.
 
 | Function | Packages | Description |
 | :--- | :--- | :--- |
-| parallel.csv | data.table, fst | Multithreads the reading of CSV files and writes to fst file format for fast reading. |
+| parallel.csv | data.table, fst | Parallelizes and multithreads the reading of CSV files and writes to fst file format for fast reading. |
 | sparse.read | sparsio, Matrix | Reads SVMLight file format (sparse matrices) |
 | sparse.write | sparsio, Matrix | Writes SVMLight file format (sparse matrices) |
 

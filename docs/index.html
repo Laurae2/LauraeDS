@@ -69,12 +69,13 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <h2 class="hasAnchor">
 <a href="#to-do" class="anchor"></a>TO-DO</h2>
 <ul>
-<li>[] add parallel handling (cluster, run parallel xgboost, run parallel LightGBM</li>
-<li>[] GLM (xgboost), Random Forest (xgboost, LightGBM), Gradient Boosted Trees (xgboost, LightGBM)</li>
-<li>[] grid learning (“grid search”)</li>
-<li>[] Random Patches feature generation (Subsampling + Colsampling from feature groups)</li>
-<li>[] stacker</li>
-<li>[] add lot of stuff</li>
+<li>[x] add parallel fast csv/fst converter</li>
+<li>[ ] add parallel handling (cluster, run parallel xgboost, run parallel LightGBM</li>
+<li>[ ] GLM (xgboost), Random Forest (xgboost, LightGBM), Gradient Boosted Trees (xgboost, LightGBM)</li>
+<li>[ ] grid learning (“grid search”)</li>
+<li>[ ] Random Patches feature generation (Subsampling + Colsampling from feature groups)</li>
+<li>[ ] stacker</li>
+<li>[ ] add lot of stuff</li>
 </ul>
 <hr>
 </div>
@@ -101,7 +102,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <tr class="odd">
 <td align="left">parallel.csv</td>
 <td align="left">data.table, fst</td>
-<td align="left">Multithreads the reading of CSV files and writes to fst file format for fast reading.</td>
+<td align="left">Parallelizes and multithreads the reading of CSV files and writes to fst file format for fast reading.</td>
 </tr>
 <tr class="even">
 <td align="left">sparse.read</td>

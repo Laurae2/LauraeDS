@@ -4,19 +4,25 @@
 \alias{parallel.csv}
 \title{Parallel CSV Converter}
 \usage{
-parallel.csv(file, compress = 35, max_threads = parallel::detectCores(),
-  progress_bar = TRUE, clean_mem = FALSE, ...)
+parallel.csv(file, compress = 35, progress_bar = TRUE, clean_mem = FALSE,
+  cl = NULL, max_threads = max(ifelse(is.null(cl), parallel::detectCores(),
+  ifelse(!is.list(cl), round(parallel::detectCores()/cl),
+  round(parallel::detectCores()/length(cl)))), 1), wkdir = NULL, ...)
 }
 \arguments{
 \item{file}{Type: vector of characters. Path to all files to read.}
 
 \item{compress}{Type: numeric. Compression rate to use. Defaults to \code{35}.}
 
-\item{max_threads}{Type: numeric. The maximum number of threads allowed to adapt \code{fst::threads_fst}. Defaults to \code{parallel::detectCores()}.}
-
 \item{progress_bar}{Type: logical. Whether to print a progress bar. Defaults to \code{TRUE}.}
 
 \item{clean_mem}{Type: logical. Whether the force garbage collection at the end of each file read in order to reclaim RAM. Defaults to \code{FALSE}.}
+
+\item{cl}{Type: cluster or integer. A parallel cluster for parallelized calls. Used only when \code{progress_bar = TRUE}. Writes to the cluster most of the variables (\code{compress}, \code{max_threads}, \code{clean_mem}, \code{wkdir}) and removes them at the end. When it is a number, creates and destroys a cluster with the specified number of parallel clusters. Defaults to \code{NULL}.}
+
+\item{max_threads}{Type: numeric. The maximum number of threads allowed to adapt \code{fst::threads_fst}. Make sure the result of \code{cl} cores multiplicated by \code{max_threads} is not bigger than the number of threads in your computer. Defaults to \code{max(ifelse(is.null(cl), parallel::detectCores(), ifelse(!is.list(cl), round(parallel::detectCores() / cl), round(parallel::detectCores() / length(cl)))), 1)}, which means at least 1 thread, and adjust automatically the number of threads depending on the number of cores per cluster. Note that it takes the rounded value, which might over and under allocate threads.}
+
+\item{wkdir}{Type: character. The working directory, when using a cluster. Defaults to \code{NULL}.}
 
 \item{...}{Other arguments to pass to \code{fst::write.fst}.}
 }
@@ -33,5 +39,6 @@ Parallelizes the writing of separate CSV files (still sequential reading) in ord
 # library(parallel)
 # 
 # parallel.csv(c("file_1.csv", "file_2.csv"), max_threads = 1, progress_bar = TRUE)
+# parallel.csv(paste0("file_", 1:100, ".csv"), max_threads = 1, progress_bar = TRUE, cl = 8)
 
 }
