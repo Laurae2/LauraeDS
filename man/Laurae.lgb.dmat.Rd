@@ -37,13 +37,13 @@ library(lightgbm)
 set.seed(0)
 
 # Generate lgb.Dataset from matrix
-random_mat <- matrix(runif(1000000, 0, 1), nrow = 100000)
-random_labels <- runif(100000, 0, 1)
+random_mat <- matrix(runif(10000, 0, 1), nrow = 1000)
+random_labels <- runif(1000, 0, 1)
 lgb_from_mat <- Laurae.lgb.dmat(data = random_mat, label = random_labels, missing = NA)
 
 # Generate lgb.Dataset from data.frame
 random_df <- data.frame(random_mat)
-random_labels_2 <- runif(100000, 0, 1)
+random_labels_2 <- runif(1000, 0, 1)
 lgb_from_df <- Laurae.lgb.dmat(data = random_df, label = random_labels, missing = NA)
 
 # Generate lgb.Dataset from respective elements of a list with progress bar

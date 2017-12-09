@@ -14,4 +14,4 @@ requireNamespace("fst") # Workaround: parallel.csv
 
 # Parallelization
 requireNamespace("pbapply") # Workaround: Laurae.xgb.dmat, Laurae.lgb.dmat, parallel.csv
-requireNamespace("parallel") # Workaround: parallel.csv
+requireNamespace("parallel") # Workaround: parallel.csv, parallel.threading, parallel.destroy

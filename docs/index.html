@@ -83,10 +83,10 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <h2 class="hasAnchor">
 <a href="#available-functions" class="anchor"></a>Available functions</h2>
 <hr>
-<div id="io-functions" class="section level3">
+<div id="parallel-functions" class="section level3">
 <h3 class="hasAnchor">
-<a href="#io-functions" class="anchor"></a>I/O functions</h3>
-<p>I/O Functions allows to read files from sparse matrices quickly.</p>
+<a href="#parallel-functions" class="anchor"></a>Parallel functions</h3>
+<p>Parallel functions are provided to make R fly on multi-core and multi-socket systems, provided enough RAM.</p>
 <table style="width:21%;" class="table">
 <colgroup>
 <col width="6%">
@@ -101,15 +101,39 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <tbody>
 <tr class="odd">
 <td align="left">parallel.csv</td>
-<td align="left">data.table, fst</td>
+<td align="left">data.table, fst, parallel</td>
 <td align="left">Parallelizes and multithreads the reading of CSV files and writes to fst file format for fast reading.</td>
 </tr>
 <tr class="even">
+<td align="left">parallel.threading</td>
+<td align="left">parallel</td>
+<td align="left">Sets processor affinity correctly on Windows machines. Provide a boost of up to 200% in memory bounded applications.</td>
+</tr>
+<tr class="odd">
+<td align="left">parallel.destroy</td>
+<td align="left">parallel</td>
+<td align="left">Stops a parallel cluster, or destroy any available clusters bound to the current R session.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="io-functions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#io-functions" class="anchor"></a>I/O functions</h3>
+<p>I/O Functions allows to read files from sparse matrices quickly.</p>
+<table class="table">
+<thead><tr class="header">
+<th align="left">Function</th>
+<th align="left">Packages</th>
+<th align="left">Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
 <td align="left">sparse.read</td>
 <td align="left">sparsio, Matrix</td>
 <td align="left">Reads SVMLight file format (sparse matrices)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">sparse.write</td>
 <td align="left">sparsio, Matrix</td>
 <td align="left">Writes SVMLight file format (sparse matrices)</td>

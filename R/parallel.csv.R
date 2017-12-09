@@ -14,13 +14,16 @@
 #' @return The element or the list of \code{fst} file names.
 #' 
 #' @examples
+#' \dontrun{
+#' # Cannot pass CRAN checks. Disabled.
 #' # Do it on your own files!
-#' # library(fst) # devtools::install_github("fstPackage/fst@e060e62")
-#' # library(data.table)
-#' # library(parallel)
-#' # 
-#' # parallel.csv(c("file_1.csv", "file_2.csv"), max_threads = 1, progress_bar = TRUE)
-#' # parallel.csv(paste0("file_", 1:100, ".csv"), max_threads = 1, progress_bar = TRUE, cl = 8)
+#' library(fst) # devtools::install_github("fstPackage/fst@e060e62")
+#' library(data.table)
+#' library(parallel)
+#' 
+#' parallel.csv(c("file_1.csv", "file_2.csv"), max_threads = 1, progress_bar = TRUE)
+#' parallel.csv(paste0("file_", 1:100, ".csv"), max_threads = 1, progress_bar = TRUE, cl = 8)
+#' }
 #' 
 #' @import data.table
 #' 

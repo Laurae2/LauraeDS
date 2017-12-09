@@ -38,13 +38,23 @@ devtools::install_github("Microsoft/LightGBM/R-package@fc59fce") # Jul 14 2017, 
 
 ---
 
+### Parallel functions
+
+Parallel functions are provided to make R fly on multi-core and multi-socket systems, provided enough RAM.
+
+| Function | Packages | Description |
+| :--- | :--- | :--- |
+| parallel.csv | data.table, fst, parallel | Parallelizes and multithreads the reading of CSV files and writes to fst file format for fast reading. |
+| parallel.threading | parallel | Sets processor affinity correctly on Windows machines. Provide a boost of up to 200% in memory bounded applications. |
+| parallel.destroy | parallel | Stops a parallel cluster, or destroy any available clusters bound to the current R session. |
+
+
 ### I/O functions
 
 I/O Functions allows to read files from sparse matrices quickly.
 
 | Function | Packages | Description |
 | :--- | :--- | :--- |
-| parallel.csv | data.table, fst | Parallelizes and multithreads the reading of CSV files and writes to fst file format for fast reading. |
 | sparse.read | sparsio, Matrix | Reads SVMLight file format (sparse matrices) |
 | sparse.write | sparsio, Matrix | Writes SVMLight file format (sparse matrices) |
 

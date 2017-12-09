@@ -360,6 +360,6 @@ model <- Laurae.xgb.train(train = dtrain,
                           tree_depth = 2,
                           learn_shrink = 1,
                           learn_threads = 1,
-                          iteration_max = 10)
+                          iteration_max = 5)
 
 }

@@ -130,14 +130,16 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'># Do it on your own files!
-# library(fst) # devtools::install_github("fstPackage/fst@e060e62")
-# library(data.table)
-# library(parallel)
-# 
-# parallel.csv(c("file_1.csv", "file_2.csv"), max_threads = 1, progress_bar = TRUE)
-# parallel.csv(paste0("file_", 1:100, ".csv"), max_threads = 1, progress_bar = TRUE, cl = 8)
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='co'># Cannot pass CRAN checks. Disabled.</span>
+<span class='co'># Do it on your own files!</span>
+<span class='fu'>library</span>(<span class='no'>fst</span>) <span class='co'># devtools::install_github("fstPackage/fst@e060e62")</span>
+<span class='fu'>library</span>(<span class='no'>data.table</span>)
+<span class='fu'>library</span>(<span class='no'>parallel</span>)
 
+<span class='fu'>parallel.csv</span>(<span class='fu'>c</span>(<span class='st'>"file_1.csv"</span>, <span class='st'>"file_2.csv"</span>), <span class='kw'>max_threads</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>progress_bar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>parallel.csv</span>(<span class='fu'>paste0</span>(<span class='st'>"file_"</span>, <span class='fl'>1</span>:<span class='fl'>100</span>, <span class='st'>".csv"</span>), <span class='kw'>max_threads</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>progress_bar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>cl</span> <span class='kw'>=</span> <span class='fl'>8</span>)
+<span class='co'># }</span><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

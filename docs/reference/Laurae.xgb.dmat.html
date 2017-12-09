@@ -134,13 +134,13 @@
 <span class='fu'>set.seed</span>(<span class='fl'>0</span>)
 
 <span class='co'># Generate xgb.DMatrix from matrix</span>
-<span class='no'>random_mat</span> <span class='kw'>&lt;-</span> <span class='fu'>matrix</span>(<span class='fu'>runif</span>(<span class='fl'>1000000</span>, <span class='fl'>0</span>, <span class='fl'>1</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>100000</span>)
-<span class='no'>random_labels</span> <span class='kw'>&lt;-</span> <span class='fu'>runif</span>(<span class='fl'>100000</span>, <span class='fl'>0</span>, <span class='fl'>1</span>)
+<span class='no'>random_mat</span> <span class='kw'>&lt;-</span> <span class='fu'>matrix</span>(<span class='fu'>runif</span>(<span class='fl'>10000</span>, <span class='fl'>0</span>, <span class='fl'>1</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>1000</span>)
+<span class='no'>random_labels</span> <span class='kw'>&lt;-</span> <span class='fu'>runif</span>(<span class='fl'>1000</span>, <span class='fl'>0</span>, <span class='fl'>1</span>)
 <span class='no'>xgb_from_mat</span> <span class='kw'>&lt;-</span> <span class='fu'>Laurae.xgb.dmat</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>random_mat</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>random_labels</span>, <span class='kw'>missing</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
 
 <span class='co'># Generate xgb.DMatrix from data.frame</span>
 <span class='no'>random_df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='no'>random_mat</span>)
-<span class='no'>random_labels_2</span> <span class='kw'>&lt;-</span> <span class='fu'>runif</span>(<span class='fl'>100000</span>, <span class='fl'>0</span>, <span class='fl'>1</span>)
+<span class='no'>random_labels_2</span> <span class='kw'>&lt;-</span> <span class='fu'>runif</span>(<span class='fl'>1000</span>, <span class='fl'>0</span>, <span class='fl'>1</span>)
 <span class='no'>xgb_from_df</span> <span class='kw'>&lt;-</span> <span class='fu'>Laurae.xgb.dmat</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>random_df</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>random_labels</span>, <span class='kw'>missing</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
 
 <span class='co'># Generate xgb.DMatrix from respective elements of a list with progress bar</span>
