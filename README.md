@@ -7,7 +7,7 @@ It is meant to require less stuff and more robust.
 ## Installation
 
 ```r
-devtools::install_github("Laurae2/LauraeDS")
+devtools::install_github("Laurae2/LauraeDS", dep = FALSE)
 ```
 
 Dependencies installation:
@@ -24,9 +24,23 @@ devtools::install_github("Microsoft/LightGBM/R-package@fc59fce") # Jul 14 2017, 
 
 ## TO-DO
 
+* [x] add fold generation
+* [x] add sparse handling
 * [x] add parallel fast csv/fst converter
-* [ ] add parallel handling (cluster, run parallel xgboost, run parallel LightGBM
-* [ ] GLM (xgboost), Random Forest (xgboost, LightGBM), Gradient Boosted Trees (xgboost, LightGBM)
+* [x] add parallel handling (cluster)
+* [ ] add parallel xgboost
+* [ ] add parallel LightGBM
+* [ ] add metrics
+* [x] add metric optimizations
+* [x] xgb.DMatrix generation
+* [x] lgb.Dataset generation
+* [x] xgboost trainer
+* [ ] LightGBM trainer
+* [ ] easy GLM (xgboost)
+* [ ] easy Random Forest (xgboost)
+* [ ] easy Random Forest (LightGBM)
+* [ ] easy Gradient Boosted Trees (xgboost)
+* [ ] easy Gradient Boosted Trees (LightGBM)
 * [ ] grid learning ("grid search")
 * [ ] Random Patches feature generation (Subsampling + Colsampling from feature groups)
 * [ ] stacker
@@ -71,6 +85,34 @@ Fold functions allow to generate folds for cross-validation very quickly.
 
 ---
 
+### Optimized Metrics
+
+Optimized metrics might help get an edge when you can.
+
+| Function | Packages | Description |
+| :--- | :--- | :--- |
+| metrics.acc.max | data.table | Maximum Binary Accuracy |
+| metrics.f1.max | data.table | Maximum F1 Score (Precision with Sensitivity Harmonic Mean |
+| metrics.fallout;max | data.table | Minimum Fall-Out (False Positive Rate) |
+| metrics.kappa.max | data.table | Maximum Kappa Statistic |
+| metrics.mcc.max | data.table | Maximum Matthews Correlation Coefficient |
+| metrics.missrate.max | data.table | Minim Miss-rate (False Negative Rate) |
+| metrics.precision.max | data.table | Maximum Precision (Positive Predictive Rate) |
+| metrics.sensitivity.max | data.table | Maximum Sensitivity (True Positive Rate) |
+| metrics.specifity.max | data.table | Maximum Specificity (True Negative Rate) |
+
+## Metric Computation/Solving
+
+Computing and/or solving metrics might help you understand what default values are the best for the metric.
+
+| Function | Packages | Description |
+| :--- | :--- | :--- |
+| metrics.logloss | None | Logarithmic Loss (logloss) |
+| metrics.logloss.unsafe | None | Logarithmic Loss (logloss) without bound checking |
+| metrics.logloss.solve | stats | Logarithmic Loss Solver |
+
+---
+
 ### Machine Learning, Binary Matrices
 
 Generating binary matrices never got easier if you can throw lists and data.frames directly.
@@ -105,4 +147,12 @@ Creating loss/metrics can be a tedious task without templates. Use these as temp
 
 ---
 
+### Machine Learning, Loss/Metrics Functions
 
+Need functions answering metrics quickly? Here are some.
+
+| Function | Packages | Description |
+| :--- | :--- | :--- |
+| metrics.logloss | None | Computes the logarithmic loss. |
+| metrics.logloss.unsafe | None | Computes the logarithmic loss faster by skipping out of bounds checks. | 
+| metrics.logloss.solve | stats | Solves for a parameter involving the logartihmic loss (minimal loss, constant prediction value, ratio). |

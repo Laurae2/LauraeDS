@@ -57,7 +57,7 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"Laurae2/LauraeDS"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"Laurae2/LauraeDS"</span>, <span class="dt">dep =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p>Dependencies installation:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">"Matrix"</span>, <span class="st">"sparsio"</span>, <span class="st">"fst"</span>, <span class="st">"data.table"</span>, <span class="st">"pbapply"</span>, <span class="st">"parallel"</span>))
 devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"fstpackage/fst@e060e62"</span>)
@@ -69,9 +69,23 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <h2 class="hasAnchor">
 <a href="#to-do" class="anchor"></a>TO-DO</h2>
 <ul>
+<li>[x] add fold generation</li>
+<li>[x] add sparse handling</li>
 <li>[x] add parallel fast csv/fst converter</li>
-<li>[ ] add parallel handling (cluster, run parallel xgboost, run parallel LightGBM</li>
-<li>[ ] GLM (xgboost), Random Forest (xgboost, LightGBM), Gradient Boosted Trees (xgboost, LightGBM)</li>
+<li>[x] add parallel handling (cluster)</li>
+<li>[ ] add parallel xgboost</li>
+<li>[ ] add parallel LightGBM</li>
+<li>[ ] add metrics</li>
+<li>[x] add metric optimizations</li>
+<li>[x] xgb.DMatrix generation</li>
+<li>[x] lgb.Dataset generation</li>
+<li>[x] xgboost trainer</li>
+<li>[ ] LightGBM trainer</li>
+<li>[ ] easy GLM (xgboost)</li>
+<li>[ ] easy Random Forest (xgboost)</li>
+<li>[ ] easy Random Forest (LightGBM)</li>
+<li>[ ] easy Gradient Boosted Trees (xgboost)</li>
+<li>[ ] easy Gradient Boosted Trees (LightGBM)</li>
 <li>[ ] grid learning (“grid search”)</li>
 <li>[ ] Random Patches feature generation (Subsampling + Colsampling from feature groups)</li>
 <li>[ ] stacker</li>
@@ -172,6 +186,105 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 </table>
 <hr>
 </div>
+<div id="optimized-metrics" class="section level3">
+<h3 class="hasAnchor">
+<a href="#optimized-metrics" class="anchor"></a>Optimized Metrics</h3>
+<p>Optimized metrics might help get an edge when you can.</p>
+<table style="width:21%;" class="table">
+<colgroup>
+<col width="6%">
+<col width="6%">
+<col width="6%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Function</th>
+<th align="left">Packages</th>
+<th align="left">Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">metrics.acc.max</td>
+<td align="left">data.table</td>
+<td align="left">Maximum Binary Accuracy</td>
+</tr>
+<tr class="even">
+<td align="left">metrics.f1.max</td>
+<td align="left">data.table</td>
+<td align="left">Maximum F1 Score (Precision with Sensitivity Harmonic Mean</td>
+</tr>
+<tr class="odd">
+<td align="left">metrics.fallout;max</td>
+<td align="left">data.table</td>
+<td align="left">Minimum Fall-Out (False Positive Rate)</td>
+</tr>
+<tr class="even">
+<td align="left">metrics.kappa.max</td>
+<td align="left">data.table</td>
+<td align="left">Maximum Kappa Statistic</td>
+</tr>
+<tr class="odd">
+<td align="left">metrics.mcc.max</td>
+<td align="left">data.table</td>
+<td align="left">Maximum Matthews Correlation Coefficient</td>
+</tr>
+<tr class="even">
+<td align="left">metrics.missrate.max</td>
+<td align="left">data.table</td>
+<td align="left">Minim Miss-rate (False Negative Rate)</td>
+</tr>
+<tr class="odd">
+<td align="left">metrics.precision.max</td>
+<td align="left">data.table</td>
+<td align="left">Maximum Precision (Positive Predictive Rate)</td>
+</tr>
+<tr class="even">
+<td align="left">metrics.sensitivity.max</td>
+<td align="left">data.table</td>
+<td align="left">Maximum Sensitivity (True Positive Rate)</td>
+</tr>
+<tr class="odd">
+<td align="left">metrics.specifity.max</td>
+<td align="left">data.table</td>
+<td align="left">Maximum Specificity (True Negative Rate)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="metric-computationsolving" class="section level2">
+<h2 class="hasAnchor">
+<a href="#metric-computationsolving" class="anchor"></a>Metric Computation/Solving</h2>
+<p>Computing and/or solving metrics might help you understand what default values are the best for the metric.</p>
+<table style="width:21%;" class="table">
+<colgroup>
+<col width="6%">
+<col width="6%">
+<col width="6%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Function</th>
+<th align="left">Packages</th>
+<th align="left">Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">metrics.logloss</td>
+<td align="left">None</td>
+<td align="left">Logarithmic Loss (logloss)</td>
+</tr>
+<tr class="even">
+<td align="left">metrics.logloss.unsafe</td>
+<td align="left">None</td>
+<td align="left">Logarithmic Loss (logloss) without bound checking</td>
+</tr>
+<tr class="odd">
+<td align="left">metrics.logloss.solve</td>
+<td align="left">stats</td>
+<td align="left">Logarithmic Loss Solver</td>
+</tr>
+</tbody>
+</table>
+<hr>
 <div id="machine-learning-binary-matrices" class="section level3">
 <h3 class="hasAnchor">
 <a href="#machine-learning-binary-matrices" class="anchor"></a>Machine Learning, Binary Matrices</h3>
@@ -254,6 +367,40 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 </tbody>
 </table>
 <hr>
+</div>
+<div id="machine-learning-lossmetrics-functions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#machine-learning-lossmetrics-functions" class="anchor"></a>Machine Learning, Loss/Metrics Functions</h3>
+<p>Need functions answering metrics quickly? Here are some.</p>
+<table style="width:21%;" class="table">
+<colgroup>
+<col width="6%">
+<col width="6%">
+<col width="6%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Function</th>
+<th align="left">Packages</th>
+<th align="left">Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">metrics.logloss</td>
+<td align="left">None</td>
+<td align="left">Computes the logarithmic loss.</td>
+</tr>
+<tr class="even">
+<td align="left">metrics.logloss.unsafe</td>
+<td align="left">None</td>
+<td align="left">Computes the logarithmic loss faster by skipping out of bounds checks.</td>
+</tr>
+<tr class="odd">
+<td align="left">metrics.logloss.solve</td>
+<td align="left">stats</td>
+<td align="left">Solves for a parameter involving the logartihmic loss (minimal loss, constant prediction value, ratio).</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
