@@ -360,7 +360,7 @@ Laurae.xgb.train <- function(train,
                                                                     scale_pos_weight = boost_weighting,
                                                                     nthread = learn_threads,
                                                                     eta = learn_shrink,
-                                                                    objective = switch(!is.function(objective) + 1, NULL, objective),
+                                                                    objective = switch((!is.function(objective)) + 1, NULL, objective),
                                                                     max_depth = tree_depth,
                                                                     max_leaves = tree_leaves,
                                                                     subsample = sample_row,
@@ -380,11 +380,11 @@ Laurae.xgb.train <- function(train,
                               nrounds = iteration_max,
                               num_parallel_tree = iteration_trees,
                               watchlist = watchlist,
-                              obj = switch(is.function(objective) + 1, NULL, objective),
+                              obj = switch((is.function(objective)) + 1, NULL, objective),
                               early_stopping_rounds = iteration_stop,
                               verbose = verbose,
                               print_every_n = verbose_iterations,
-                              maximize = switch(!is.null(maximize) + 1, NULL, maximize))
+                              maximize = switch((!is.null(maximize)) + 1, NULL, maximize))
   
   if (clean_mem) {gc(verbose = FALSE)}
   
