@@ -1,8 +1,8 @@
 Package: LauraeDS
 Type: Package
 Title: Laurae's Data Science Package
-Version: 1.0.20171210
-Date: 2017-12-10
+Version: 1.0.20171216
+Date: 2017-12-16
 Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
 Depends: 
 	R (>= 3.3.0),

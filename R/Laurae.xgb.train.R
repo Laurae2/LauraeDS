@@ -24,6 +24,7 @@
 #' 
 #' @param train Type: xgb.DMatrix. The training data.
 #' @param watchlist Type: list of xgb.DMatrix. The data to monitor through the metrics, defaults to \code{list()}.
+#' @param clean_mem Type: logical. Whether the force garbage collection before and after training in order to reclaim RAM. Defaults to \code{FALSE}.
 #' @param seed Type: numeric. Seed for the random number generator for reproducibility, defaults to \code{1}.
 #' @param verbose Type: numeric. Whether to print messages. Defaults to \code{1}.
 #' @param verbose_iterations Type: numeric. How many iterations to cool down before printing on the console again. Defaults to \code{1}.
@@ -314,6 +315,7 @@
 
 Laurae.xgb.train <- function(train,
                              watchlist = NULL,
+                             clean_mem = FALSE,
                              seed = 1,
                              verbose = 1,
                              verbose_iterations = 1,
@@ -347,39 +349,45 @@ Laurae.xgb.train <- function(train,
                              dart_min_1 = 0,
                              ...) {
   
+  if (clean_mem) {gc(verbose = FALSE)}
+  
   set.seed(seed)
-  xgboost::xgb.train(params = Filter(Negate(is.null), list(booster = boost_method,
-                                                           tree_method = boost_tree,
-                                                           grow_policy = boost_grow,
-                                                           max_bin = boost_bin,
-                                                           colmat_dtype = boost_memory,
-                                                           scale_pos_weight = boost_weighting,
-                                                           nthread = learn_threads,
-                                                           eta = learn_shrink,
-                                                           objective = switch(!is.function(objective) + 1, NULL, objective),
-                                                           max_depth = tree_depth,
-                                                           max_leaves = tree_leaves,
-                                                           subsample = sample_row,
-                                                           colsample_bytree = sample_col,
-                                                           alpha = reg_l1,
-                                                           lambda = reg_l2,
-                                                           lambda_bias = reg_l2_bias,
-                                                           gamma = reg_loss,
-                                                           min_child_weight = reg_hessian,
-                                                           rate_drop = dart_rate_drop,
-                                                           skip_drop = dart_skip_drop,
-                                                           sample_type = dart_sampling,
-                                                           normalize_type = dart_norm,
-                                                           one_drop = dart_min_1,
-                                                           ...)),
-                     data = train,
-                     nrounds = iteration_max,
-                     num_parallel_tree = iteration_trees,
-                     watchlist = watchlist,
-                     obj = switch(is.function(objective) + 1, NULL, objective),
-                     early_stopping_rounds = iteration_stop,
-                     verbose = verbose,
-                     print_every_n = verbose_iterations,
-                     maximize = switch(!is.null(maximize) + 1, NULL, maximize))
+  model <- xgboost::xgb.train(params = Filter(Negate(is.null), list(booster = boost_method,
+                                                                    tree_method = boost_tree,
+                                                                    grow_policy = boost_grow,
+                                                                    max_bin = boost_bin,
+                                                                    colmat_dtype = boost_memory,
+                                                                    scale_pos_weight = boost_weighting,
+                                                                    nthread = learn_threads,
+                                                                    eta = learn_shrink,
+                                                                    objective = switch(!is.function(objective) + 1, NULL, objective),
+                                                                    max_depth = tree_depth,
+                                                                    max_leaves = tree_leaves,
+                                                                    subsample = sample_row,
+                                                                    colsample_bytree = sample_col,
+                                                                    alpha = reg_l1,
+                                                                    lambda = reg_l2,
+                                                                    lambda_bias = reg_l2_bias,
+                                                                    gamma = reg_loss,
+                                                                    min_child_weight = reg_hessian,
+                                                                    rate_drop = dart_rate_drop,
+                                                                    skip_drop = dart_skip_drop,
+                                                                    sample_type = dart_sampling,
+                                                                    normalize_type = dart_norm,
+                                                                    one_drop = dart_min_1,
+                                                                    ...)),
+                              data = train,
+                              nrounds = iteration_max,
+                              num_parallel_tree = iteration_trees,
+                              watchlist = watchlist,
+                              obj = switch(is.function(objective) + 1, NULL, objective),
+                              early_stopping_rounds = iteration_stop,
+                              verbose = verbose,
+                              print_every_n = verbose_iterations,
+                              maximize = switch(!is.null(maximize) + 1, NULL, maximize))
+  
+  if (clean_mem) {gc(verbose = FALSE)}
+  
+  return(model)
   
 }

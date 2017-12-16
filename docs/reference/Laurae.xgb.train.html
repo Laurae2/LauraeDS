@@ -82,15 +82,15 @@
     <p>Trains an xgboost model. Requires <code>Matrix</code> and <code>xgboost</code> packages.</p>
     
 
-    <pre class="usage"><span class='fu'>Laurae.xgb.train</span>(<span class='no'>train</span>, <span class='kw'>watchlist</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>verbose_iterations</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>objective</span> <span class='kw'>=</span> <span class='st'>"reg:linear"</span>, <span class='kw'>metric</span> <span class='kw'>=</span> <span class='st'>"rmse"</span>,
-  <span class='kw'>maximize</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>boost_method</span> <span class='kw'>=</span> <span class='st'>"gbtree"</span>, <span class='kw'>boost_tree</span> <span class='kw'>=</span> <span class='st'>"hist"</span>,
-  <span class='kw'>boost_grow</span> <span class='kw'>=</span> <span class='st'>"depthwise"</span>, <span class='kw'>boost_bin</span> <span class='kw'>=</span> <span class='fl'>255</span>, <span class='kw'>boost_memory</span> <span class='kw'>=</span> <span class='st'>"uint32"</span>,
-  <span class='kw'>boost_weighting</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>learn_threads</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>learn_shrink</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>iteration_max</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>iteration_trees</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>iteration_stop</span> <span class='kw'>=</span> <span class='fl'>20</span>,
-  <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>tree_leaves</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>sample_row</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>sample_col</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>reg_l1</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>reg_l2</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>reg_l2_bias</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>reg_loss</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>reg_hessian</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>dart_rate_drop</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>dart_skip_drop</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+    <pre class="usage"><span class='fu'>Laurae.xgb.train</span>(<span class='no'>train</span>, <span class='kw'>watchlist</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>clean_mem</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>verbose_iterations</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>objective</span> <span class='kw'>=</span> <span class='st'>"reg:linear"</span>,
+  <span class='kw'>metric</span> <span class='kw'>=</span> <span class='st'>"rmse"</span>, <span class='kw'>maximize</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>boost_method</span> <span class='kw'>=</span> <span class='st'>"gbtree"</span>,
+  <span class='kw'>boost_tree</span> <span class='kw'>=</span> <span class='st'>"hist"</span>, <span class='kw'>boost_grow</span> <span class='kw'>=</span> <span class='st'>"depthwise"</span>, <span class='kw'>boost_bin</span> <span class='kw'>=</span> <span class='fl'>255</span>,
+  <span class='kw'>boost_memory</span> <span class='kw'>=</span> <span class='st'>"uint32"</span>, <span class='kw'>boost_weighting</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>learn_threads</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>learn_shrink</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>iteration_max</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>iteration_trees</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>iteration_stop</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>tree_leaves</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>sample_row</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>sample_col</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>reg_l1</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>reg_l2</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>reg_l2_bias</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>reg_loss</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>reg_hessian</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>dart_rate_drop</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>dart_skip_drop</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>dart_sampling</span> <span class='kw'>=</span> <span class='st'>"uniform"</span>, <span class='kw'>dart_norm</span> <span class='kw'>=</span> <span class='st'>"tree"</span>, <span class='kw'>dart_min_1</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -103,6 +103,10 @@
     <tr>
       <th>watchlist</th>
       <td><p>Type: list of xgb.DMatrix. The data to monitor through the metrics, defaults to <code>list()</code>.</p></td>
+    </tr>
+    <tr>
+      <th>clean_mem</th>
+      <td><p>Type: logical. Whether the force garbage collection before and after training in order to reclaim RAM. Defaults to <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>seed</th>
@@ -509,7 +513,7 @@
                           <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='fl'>2</span>,
                           <span class='kw'>learn_shrink</span> <span class='kw'>=</span> <span class='fl'>1</span>,
                           <span class='kw'>learn_threads</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-                          <span class='kw'>iteration_max</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; [19:44:30] Tree method is selected to be 'hist', which uses a single updater grow_fast_histmaker.
+                          <span class='kw'>iteration_max</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; [19:56:39] Tree method is selected to be 'hist', which uses a single updater grow_fast_histmaker.
 #&gt; [1]	train-auc:0.958228	eval-auc:0.960373 
 #&gt; Multiple eval metrics are present. Will use eval_auc for early stopping.
 #&gt; Will train until eval_auc hasn't improved in 20 rounds.

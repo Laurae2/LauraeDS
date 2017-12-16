@@ -4,21 +4,23 @@
 \alias{Laurae.xgb.train}
 \title{xgboost Model Trainer}
 \usage{
-Laurae.xgb.train(train, watchlist = NULL, seed = 1, verbose = 1,
-  verbose_iterations = 1, objective = "reg:linear", metric = "rmse",
-  maximize = NULL, boost_method = "gbtree", boost_tree = "hist",
-  boost_grow = "depthwise", boost_bin = 255, boost_memory = "uint32",
-  boost_weighting = 1, learn_threads = 1, learn_shrink = 0.05,
-  iteration_max = 100, iteration_trees = 1, iteration_stop = 20,
-  tree_depth = 6, tree_leaves = 0, sample_row = 1, sample_col = 1,
-  reg_l1 = 0, reg_l2 = 0, reg_l2_bias = 0, reg_loss = 0,
-  reg_hessian = 1, dart_rate_drop = 0, dart_skip_drop = 0,
+Laurae.xgb.train(train, watchlist = NULL, clean_mem = FALSE, seed = 1,
+  verbose = 1, verbose_iterations = 1, objective = "reg:linear",
+  metric = "rmse", maximize = NULL, boost_method = "gbtree",
+  boost_tree = "hist", boost_grow = "depthwise", boost_bin = 255,
+  boost_memory = "uint32", boost_weighting = 1, learn_threads = 1,
+  learn_shrink = 0.05, iteration_max = 100, iteration_trees = 1,
+  iteration_stop = 20, tree_depth = 6, tree_leaves = 0, sample_row = 1,
+  sample_col = 1, reg_l1 = 0, reg_l2 = 0, reg_l2_bias = 0,
+  reg_loss = 0, reg_hessian = 1, dart_rate_drop = 0, dart_skip_drop = 0,
   dart_sampling = "uniform", dart_norm = "tree", dart_min_1 = 0, ...)
 }
 \arguments{
 \item{train}{Type: xgb.DMatrix. The training data.}
 
 \item{watchlist}{Type: list of xgb.DMatrix. The data to monitor through the metrics, defaults to \code{list()}.}
+
+\item{clean_mem}{Type: logical. Whether the force garbage collection before and after training in order to reclaim RAM. Defaults to \code{FALSE}.}
 
 \item{seed}{Type: numeric. Seed for the random number generator for reproducibility, defaults to \code{1}.}
 
