@@ -5,14 +5,12 @@
 \title{Parallel Threading Affinity Optimization}
 \usage{
 parallel.threading(cl = parallel::detectCores(),
-  max_threads = max(ifelse(is.null(cl), parallel::detectCores(),
-  ifelse(!is.list(cl), round(parallel::detectCores()/cl),
-  round(parallel::detectCores()/length(cl)))), 1), first_thread = 1)
+  max_threads = parallel::detectCores(), first_thread = 1)
 }
 \arguments{
 \item{cl}{Type: cluster or integer. A parallel cluster. When it is a number, creates a cluster with the specified number of parallel clusters. Defaults to \code{parallel::detectCores()}.}
 
-\item{max_threads}{Type: numeric. The maximum number of threads allowed (for each clusters). Make sure the result of \code{cl} cores multiplicated by \code{max_threads} is not bigger than the number of threads in your computer, but also an integer number. Defaults to \code{max(ifelse(is.null(cl), parallel::detectCores(), ifelse(!is.list(cl), round(parallel::detectCores() / cl), round(parallel::detectCores() / length(cl)))), 1)}, which means at least 1 thread, and adjust automatically the number of threads depending on the number of cores per cluster. Note that it will not round values, and throws an error everytime you provided an incorrect setup.}
+\item{max_threads}{Type: numeric. The maximum number of threads allowed (for all clusters together, not for each cluster). Make sure the result of \code{max_threads} cores divided by \code{cl} is an integer number, while \code{max_threads} is smaller or equal to the number of (logical) cores in your computer. Defaults to \code{parallel::detectCores()}, which means use all available (logical) cores.}
 
 \item{first_thread}{Type: numeric. The first core to use as the first thread to setup affinity. Useless for NUMA environments when using multiple R scripts. Defaults to \code{1}.}
 }

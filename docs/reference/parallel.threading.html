@@ -83,9 +83,7 @@
     
 
     <pre class="usage"><span class='fu'>parallel.threading</span>(<span class='kw'>cl</span> <span class='kw'>=</span> <span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/parallel/topics/detectCores'>detectCores</a></span>(),
-  <span class='kw'>max_threads</span> <span class='kw'>=</span> <span class='fu'>max</span>(<span class='fu'>ifelse</span>(<span class='fu'>is.null</span>(<span class='no'>cl</span>), <span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/parallel/topics/detectCores'>detectCores</a></span>(),
-  <span class='fu'>ifelse</span>(!<span class='fu'>is.list</span>(<span class='no'>cl</span>), <span class='fu'>round</span>(<span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/parallel/topics/detectCores'>detectCores</a></span>()/<span class='no'>cl</span>),
-  <span class='fu'>round</span>(<span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/parallel/topics/detectCores'>detectCores</a></span>()/<span class='fu'>length</span>(<span class='no'>cl</span>)))), <span class='fl'>1</span>), <span class='kw'>first_thread</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+  <span class='kw'>max_threads</span> <span class='kw'>=</span> <span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/parallel/topics/detectCores'>detectCores</a></span>(), <span class='kw'>first_thread</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -96,7 +94,7 @@
     </tr>
     <tr>
       <th>max_threads</th>
-      <td><p>Type: numeric. The maximum number of threads allowed (for each clusters). Make sure the result of <code>cl</code> cores multiplicated by <code>max_threads</code> is not bigger than the number of threads in your computer, but also an integer number. Defaults to <code>max(ifelse(is.null(cl), parallel::detectCores(), ifelse(!is.list(cl), round(parallel::detectCores() / cl), round(parallel::detectCores() / length(cl)))), 1)</code>, which means at least 1 thread, and adjust automatically the number of threads depending on the number of cores per cluster. Note that it will not round values, and throws an error everytime you provided an incorrect setup.</p></td>
+      <td><p>Type: numeric. The maximum number of threads allowed (for all clusters together, not for each cluster). Make sure the result of <code>max_threads</code> cores divided by <code>cl</code> is an integer number, while <code>max_threads</code> is smaller or equal to the number of (logical) cores in your computer. Defaults to <code><a href='http://www.rdocumentation.org/packages/parallel/topics/detectCores'>parallel::detectCores()</a></code>, which means use all available (logical) cores.</p></td>
     </tr>
     <tr>
       <th>first_thread</th>
