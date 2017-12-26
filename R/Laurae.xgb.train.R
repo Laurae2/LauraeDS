@@ -142,7 +142,7 @@
 #'  \item For instance, doing 5 iteations at a learning rate of 0.1 approximately would require doing 5000 iterations at a learning rate of 0.001, which might be obnoxious for large datasets.
 #'  \item Typically, we use a learning rate of 0.05 or lower for training, while a learning rate of 0.10 or larger is used for tinkering the hyperparameters.
 #' }
-#' @param iteration_max Type: numeric. Number of boosting iterations, defauls to \code{1}. \itemize{
+#' @param iteration_max Type: numeric. Number of boosting iterations, defauls to \code{100}. \itemize{
 #'  \item Number of boosting iterations.
 #'  \item Tips: combine with early stopping to stop automatically boosting.
 #'  \item Larger is not always better.
@@ -150,7 +150,7 @@
 #'  \item It is better to perform cross-validation one model at a time, in order to get the number of iterations per fold. In addition, this allows to get a precise idea of how noisy the data is.
 #'  \item When selecting the number of iterations, it is typical to select 1.10x the mean of the number of iterations found via cross-validation.
 #' }
-#' @param iteration_trees Type: numeric. Averaged trees per iteration, defauls to \code{100}. \itemize{
+#' @param iteration_trees Type: numeric. Averaged trees per iteration, defauls to \code{1}. \itemize{
 #'  \item Number of trees per boosting iteration.
 #'  \item Tips: Do not tune it unless you know what you are doing.
 #'  \item To achieve Random Forest, one should use sampling parameters to not get identical trees.
@@ -305,7 +305,7 @@
 #'                           watchlist = watchlist,
 #'                           verbose = 1,
 #'                           objective = "binary:logistic",
-#'                           eval_metric = "auc",
+#'                           metric = "auc",
 #'                           tree_depth = 2,
 #'                           learn_shrink = 1,
 #'                           learn_threads = 1,
@@ -361,6 +361,7 @@ Laurae.xgb.train <- function(train,
                                                                     nthread = learn_threads,
                                                                     eta = learn_shrink,
                                                                     objective = switch((!is.function(objective)) + 1, NULL, objective),
+                                                                    eval_metric = unlist(Filter(Negate(is.null), lapply(metric, function(x) {switch((!is.function(x)) + 1, NULL, x)}))),
                                                                     max_depth = tree_depth,
                                                                     max_leaves = tree_leaves,
                                                                     subsample = sample_row,
@@ -381,6 +382,7 @@ Laurae.xgb.train <- function(train,
                               num_parallel_tree = iteration_trees,
                               watchlist = watchlist,
                               obj = switch((is.function(objective)) + 1, NULL, objective),
+                              feval = unlist(Filter(Negate(is.null), lapply(metric, function(x) {switch((is.function(x)) + 1, NULL, x)}))),
                               early_stopping_rounds = iteration_stop,
                               verbose = verbose,
                               print_every_n = verbose_iterations,

@@ -269,7 +269,7 @@
     </tr>
     <tr>
       <th>iteration_max</th>
-      <td><p>Type: numeric. Number of boosting iterations, defauls to <code>1</code>.</p><ul>
+      <td><p>Type: numeric. Number of boosting iterations, defauls to <code>100</code>.</p><ul>
 <li><p>Number of boosting iterations.</p></li>
 <li><p>Tips: combine with early stopping to stop automatically boosting.</p></li>
 <li><p>Larger is not always better.</p></li>
@@ -280,7 +280,7 @@
     </tr>
     <tr>
       <th>iteration_trees</th>
-      <td><p>Type: numeric. Averaged trees per iteration, defauls to <code>100</code>.</p><ul>
+      <td><p>Type: numeric. Averaged trees per iteration, defauls to <code>1</code>.</p><ul>
 <li><p>Number of trees per boosting iteration.</p></li>
 <li><p>Tips: Do not tune it unless you know what you are doing.</p></li>
 <li><p>To achieve Random Forest, one should use sampling parameters to not get identical trees.</p></li>
@@ -509,11 +509,11 @@
                           <span class='kw'>watchlist</span> <span class='kw'>=</span> <span class='no'>watchlist</span>,
                           <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>1</span>,
                           <span class='kw'>objective</span> <span class='kw'>=</span> <span class='st'>"binary:logistic"</span>,
-                          <span class='kw'>eval_metric</span> <span class='kw'>=</span> <span class='st'>"auc"</span>,
+                          <span class='kw'>metric</span> <span class='kw'>=</span> <span class='st'>"auc"</span>,
                           <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='fl'>2</span>,
                           <span class='kw'>learn_shrink</span> <span class='kw'>=</span> <span class='fl'>1</span>,
                           <span class='kw'>learn_threads</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-                          <span class='kw'>iteration_max</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; [12:32:28] Tree method is selected to be 'hist', which uses a single updater grow_fast_histmaker.
+                          <span class='kw'>iteration_max</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; [12:59:22] Tree method is selected to be 'hist', which uses a single updater grow_fast_histmaker.
 #&gt; [1]	train-auc:0.958228	eval-auc:0.960373 
 #&gt; Multiple eval metrics are present. Will use eval_auc for early stopping.
 #&gt; Will train until eval_auc hasn't improved in 20 rounds.

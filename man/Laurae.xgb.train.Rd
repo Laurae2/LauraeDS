@@ -153,7 +153,7 @@ Laurae.xgb.train(train, watchlist = NULL, clean_mem = FALSE, seed = 1,
  \item Typically, we use a learning rate of 0.05 or lower for training, while a learning rate of 0.10 or larger is used for tinkering the hyperparameters.
 }}
 
-\item{iteration_max}{Type: numeric. Number of boosting iterations, defauls to \code{1}. \itemize{
+\item{iteration_max}{Type: numeric. Number of boosting iterations, defauls to \code{100}. \itemize{
  \item Number of boosting iterations.
  \item Tips: combine with early stopping to stop automatically boosting.
  \item Larger is not always better.
@@ -162,7 +162,7 @@ Laurae.xgb.train(train, watchlist = NULL, clean_mem = FALSE, seed = 1,
  \item When selecting the number of iterations, it is typical to select 1.10x the mean of the number of iterations found via cross-validation.
 }}
 
-\item{iteration_trees}{Type: numeric. Averaged trees per iteration, defauls to \code{100}. \itemize{
+\item{iteration_trees}{Type: numeric. Averaged trees per iteration, defauls to \code{1}. \itemize{
  \item Number of trees per boosting iteration.
  \item Tips: Do not tune it unless you know what you are doing.
  \item To achieve Random Forest, one should use sampling parameters to not get identical trees.
@@ -358,7 +358,7 @@ model <- Laurae.xgb.train(train = dtrain,
                           watchlist = watchlist,
                           verbose = 1,
                           objective = "binary:logistic",
-                          eval_metric = "auc",
+                          metric = "auc",
                           tree_depth = 2,
                           learn_shrink = 1,
                           learn_threads = 1,
