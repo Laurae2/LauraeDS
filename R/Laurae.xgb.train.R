@@ -301,6 +301,19 @@
 #' dtest <- xgb.DMatrix(agaricus.test$data, label = agaricus.test$label)
 #' watchlist <- list(train = dtrain, eval = dtest)
 #' 
+#' logregobj <- function(preds, dtrain) {
+#'   labels <- getinfo(dtrain, "label")
+#'   preds <- 1/(1 + exp(-preds))
+#'   grad <- preds - labels
+#'   hess <- preds * (1 - preds)
+#'   return(list(grad = grad, hess = hess))
+#' }
+#' evalerror <- function(preds, dtrain) {
+#'   labels <- getinfo(dtrain, "label")
+#'   err <- as.numeric(sum(labels != (preds > 0)))/length(labels)
+#'   return(list(metric = "error", value = err))
+#' }
+#' 
 #' model <- Laurae.xgb.train(train = dtrain,
 #'                           watchlist = watchlist,
 #'                           verbose = 1,
@@ -311,7 +324,63 @@
 #'                           learn_threads = 1,
 #'                           iteration_max = 5)
 #' 
+#' model <- Laurae.xgb.train(train = dtrain,
+#'                           watchlist = watchlist,
+#'                           verbose = 1,
+#'                           objective = logregobj,
+#'                           metric = "auc",
+#'                           tree_depth = 2,
+#'                           learn_shrink = 1,
+#'                           learn_threads = 1,
+#'                           iteration_max = 5)
+#' 
+#' model <- Laurae.xgb.train(train = dtrain,
+#'                           watchlist = watchlist,
+#'                           verbose = 1,
+#'                           objective = "binary:logistic",
+#'                           metric = evalerror,
+#'                           tree_depth = 2,
+#'                           learn_shrink = 1,
+#'                           learn_threads = 1,
+#'                           iteration_max = 5,
+#'                           maximize = FALSE)
+#' 
+#' # CAN'T DO THIS, IGNORE ANY NOT 1st METRIC
+#' model <- Laurae.xgb.train(train = dtrain,
+#'                           watchlist = watchlist,
+#'                           verbose = 1,
+#'                           objective = logregobj,
+#'                           metric = c("rmse", "auc"),
+#'                           tree_depth = 2,
+#'                           learn_shrink = 1,
+#'                           learn_threads = 1,
+#'                           iteration_max = 5)
+#' 
+#' model <- Laurae.xgb.train(train = dtrain,
+#'                           watchlist = watchlist,
+#'                           verbose = 1,
+#'                           objective = logregobj,
+#'                           metric = evalerror,
+#'                           tree_depth = 2,
+#'                           learn_shrink = 1,
+#'                           learn_threads = 1,
+#'                           iteration_max = 5,
+#'                           maximize = FALSE)
+#' 
+#' # CAN'T DO THIS
+#' # model <- Laurae.xgb.train(train = dtrain,
+#' #                           watchlist = watchlist,
+#' #                           verbose = 1,
+#' #                           objective = logregobj,
+#' #                           metric = c(evalerror, "auc"),
+#' #                           tree_depth = 2,
+#' #                           learn_shrink = 1,
+#' #                           learn_threads = 1,
+#' #                           iteration_max = 5,
+#' #                           maximize = FALSE)
+#' 
 #' @export
+
 
 Laurae.xgb.train <- function(train,
                              watchlist = NULL,
@@ -351,6 +420,28 @@ Laurae.xgb.train <- function(train,
   
   if (clean_mem) {gc(verbose = FALSE)}
   
+  if (length(metric) == 1) {
+    if (is.function(metric)) {
+      metrics1 <- NULL
+      metrics2 <- metric
+    } else {
+      metrics1 <- metric
+      metrics2 <- NULL
+    }
+  } else if (length(metric) > 1) {
+    is_fun <- unlist(lapply(metric, function(x) {is.function(x)}))
+    metrics1 <- metric[!is_fun]
+    metrics2 <- metric[is_fun]
+    if (length(metrics1) == 0) {
+      metrics1 <- NULL
+    } else if (length(metrics2) == 0) {
+      metrics2 <- NULL
+    }
+  } else {
+    metrics1 <- NULL
+    metrics2 <- NULL
+  }
+  
   set.seed(seed)
   model <- xgboost::xgb.train(params = Filter(Negate(is.null), list(booster = boost_method,
                                                                     tree_method = boost_tree,
@@ -361,7 +452,7 @@ Laurae.xgb.train <- function(train,
                                                                     nthread = learn_threads,
                                                                     eta = learn_shrink,
                                                                     objective = switch((!is.function(objective)) + 1, NULL, objective),
-                                                                    eval_metric = unlist(Filter(Negate(is.null), lapply(metric, function(x) {switch((!is.function(x)) + 1, NULL, x)}))),
+                                                                    eval_metric = metrics1,
                                                                     max_depth = tree_depth,
                                                                     max_leaves = tree_leaves,
                                                                     subsample = sample_row,
@@ -382,7 +473,7 @@ Laurae.xgb.train <- function(train,
                               num_parallel_tree = iteration_trees,
                               watchlist = watchlist,
                               obj = switch((is.function(objective)) + 1, NULL, objective),
-                              feval = unlist(Filter(Negate(is.null), lapply(metric, function(x) {switch((is.function(x)) + 1, NULL, x)}))),
+                              feval = metrics2,
                               early_stopping_rounds = iteration_stop,
                               verbose = verbose,
                               print_every_n = verbose_iterations,

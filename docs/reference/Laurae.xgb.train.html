@@ -505,6 +505,19 @@
 <span class='no'>dtest</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/xgboost/topics/xgb.DMatrix'>xgb.DMatrix</a></span>(<span class='no'>agaricus.test</span>$<span class='no'>data</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>agaricus.test</span>$<span class='no'>label</span>)
 <span class='no'>watchlist</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='kw'>train</span> <span class='kw'>=</span> <span class='no'>dtrain</span>, <span class='kw'>eval</span> <span class='kw'>=</span> <span class='no'>dtest</span>)
 
+<span class='no'>logregobj</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>preds</span>, <span class='no'>dtrain</span>) {
+  <span class='no'>labels</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/xgboost/topics/getinfo'>getinfo</a></span>(<span class='no'>dtrain</span>, <span class='st'>"label"</span>)
+  <span class='no'>preds</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>/(<span class='fl'>1</span> + <span class='fu'>exp</span>(-<span class='no'>preds</span>))
+  <span class='no'>grad</span> <span class='kw'>&lt;-</span> <span class='no'>preds</span> - <span class='no'>labels</span>
+  <span class='no'>hess</span> <span class='kw'>&lt;-</span> <span class='no'>preds</span> * (<span class='fl'>1</span> - <span class='no'>preds</span>)
+  <span class='fu'>return</span>(<span class='fu'>list</span>(<span class='kw'>grad</span> <span class='kw'>=</span> <span class='no'>grad</span>, <span class='kw'>hess</span> <span class='kw'>=</span> <span class='no'>hess</span>))
+}
+<span class='no'>evalerror</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>preds</span>, <span class='no'>dtrain</span>) {
+  <span class='no'>labels</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/xgboost/topics/getinfo'>getinfo</a></span>(<span class='no'>dtrain</span>, <span class='st'>"label"</span>)
+  <span class='no'>err</span> <span class='kw'>&lt;-</span> <span class='fu'>as.numeric</span>(<span class='fu'>sum</span>(<span class='no'>labels</span> <span class='kw'>!=</span> (<span class='no'>preds</span> <span class='kw'>&gt;</span> <span class='fl'>0</span>)))/<span class='fu'>length</span>(<span class='no'>labels</span>)
+  <span class='fu'>return</span>(<span class='fu'>list</span>(<span class='kw'>metric</span> <span class='kw'>=</span> <span class='st'>"error"</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>err</span>))
+}
+
 <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>Laurae.xgb.train</span>(<span class='kw'>train</span> <span class='kw'>=</span> <span class='no'>dtrain</span>,
                           <span class='kw'>watchlist</span> <span class='kw'>=</span> <span class='no'>watchlist</span>,
                           <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>1</span>,
@@ -513,7 +526,7 @@
                           <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='fl'>2</span>,
                           <span class='kw'>learn_shrink</span> <span class='kw'>=</span> <span class='fl'>1</span>,
                           <span class='kw'>learn_threads</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-                          <span class='kw'>iteration_max</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; [12:59:22] Tree method is selected to be 'hist', which uses a single updater grow_fast_histmaker.
+                          <span class='kw'>iteration_max</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; [13:31:13] Tree method is selected to be 'hist', which uses a single updater grow_fast_histmaker.
 #&gt; [1]	train-auc:0.958228	eval-auc:0.960373 
 #&gt; Multiple eval metrics are present. Will use eval_auc for early stopping.
 #&gt; Will train until eval_auc hasn't improved in 20 rounds.
@@ -522,6 +535,89 @@
 #&gt; [3]	train-auc:0.994369	eval-auc:0.995616 
 #&gt; [4]	train-auc:0.997364	eval-auc:0.998943 
 #&gt; [5]	train-auc:0.998124	eval-auc:0.998745 </div><div class='input'>
+<span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>Laurae.xgb.train</span>(<span class='kw'>train</span> <span class='kw'>=</span> <span class='no'>dtrain</span>,
+                          <span class='kw'>watchlist</span> <span class='kw'>=</span> <span class='no'>watchlist</span>,
+                          <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+                          <span class='kw'>objective</span> <span class='kw'>=</span> <span class='no'>logregobj</span>,
+                          <span class='kw'>metric</span> <span class='kw'>=</span> <span class='st'>"auc"</span>,
+                          <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+                          <span class='kw'>learn_shrink</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+                          <span class='kw'>learn_threads</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+                          <span class='kw'>iteration_max</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; [13:31:13] Tree method is selected to be 'hist', which uses a single updater grow_fast_histmaker.
+#&gt; [1]	train-auc:0.958228	eval-auc:0.960373 
+#&gt; Multiple eval metrics are present. Will use eval_auc for early stopping.
+#&gt; Will train until eval_auc hasn't improved in 20 rounds.
+#&gt; 
+#&gt; [2]	train-auc:0.981413	eval-auc:0.979930 
+#&gt; [3]	train-auc:0.989408	eval-auc:0.989228 
+#&gt; [4]	train-auc:0.997592	eval-auc:0.998518 
+#&gt; [5]	train-auc:0.999114	eval-auc:1.000000 </div><div class='input'>
+<span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>Laurae.xgb.train</span>(<span class='kw'>train</span> <span class='kw'>=</span> <span class='no'>dtrain</span>,
+                          <span class='kw'>watchlist</span> <span class='kw'>=</span> <span class='no'>watchlist</span>,
+                          <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+                          <span class='kw'>objective</span> <span class='kw'>=</span> <span class='st'>"binary:logistic"</span>,
+                          <span class='kw'>metric</span> <span class='kw'>=</span> <span class='no'>evalerror</span>,
+                          <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+                          <span class='kw'>learn_shrink</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+                          <span class='kw'>learn_threads</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+                          <span class='kw'>iteration_max</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+                          <span class='kw'>maximize</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [13:31:13] Tree method is selected to be 'hist', which uses a single updater grow_fast_histmaker.
+#&gt; [1]	train-error:0.517887	eval-error:0.518312 
+#&gt; Multiple eval metrics are present. Will use eval_error for early stopping.
+#&gt; Will train until eval_error hasn't improved in 20 rounds.
+#&gt; 
+#&gt; [2]	train-error:0.517887	eval-error:0.518312 
+#&gt; [3]	train-error:0.517887	eval-error:0.518312 
+#&gt; [4]	train-error:0.517887	eval-error:0.518312 
+#&gt; [5]	train-error:0.517887	eval-error:0.518312 </div><div class='input'>
+<span class='co'># CAN'T DO THIS, IGNORE ANY NOT 1st METRIC</span>
+<span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>Laurae.xgb.train</span>(<span class='kw'>train</span> <span class='kw'>=</span> <span class='no'>dtrain</span>,
+                          <span class='kw'>watchlist</span> <span class='kw'>=</span> <span class='no'>watchlist</span>,
+                          <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+                          <span class='kw'>objective</span> <span class='kw'>=</span> <span class='no'>logregobj</span>,
+                          <span class='kw'>metric</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"rmse"</span>, <span class='st'>"auc"</span>),
+                          <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+                          <span class='kw'>learn_shrink</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+                          <span class='kw'>learn_threads</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+                          <span class='kw'>iteration_max</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; [13:31:13] Tree method is selected to be 'hist', which uses a single updater grow_fast_histmaker.
+#&gt; [1]	train-rmse:1.601098	eval-rmse:1.597511 
+#&gt; Multiple eval metrics are present. Will use eval_rmse for early stopping.
+#&gt; Will train until eval_rmse hasn't improved in 20 rounds.
+#&gt; 
+#&gt; [2]	train-rmse:2.436257	eval-rmse:2.429409 
+#&gt; [3]	train-rmse:2.466510	eval-rmse:2.519721 
+#&gt; [4]	train-rmse:3.211424	eval-rmse:3.243396 
+#&gt; [5]	train-rmse:3.376582	eval-rmse:3.408669 </div><div class='input'>
+<span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'>Laurae.xgb.train</span>(<span class='kw'>train</span> <span class='kw'>=</span> <span class='no'>dtrain</span>,
+                          <span class='kw'>watchlist</span> <span class='kw'>=</span> <span class='no'>watchlist</span>,
+                          <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+                          <span class='kw'>objective</span> <span class='kw'>=</span> <span class='no'>logregobj</span>,
+                          <span class='kw'>metric</span> <span class='kw'>=</span> <span class='no'>evalerror</span>,
+                          <span class='kw'>tree_depth</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+                          <span class='kw'>learn_shrink</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+                          <span class='kw'>learn_threads</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+                          <span class='kw'>iteration_max</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+                          <span class='kw'>maximize</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [13:31:13] Tree method is selected to be 'hist', which uses a single updater grow_fast_histmaker.
+#&gt; [1]	train-error:0.046522	eval-error:0.042831 
+#&gt; Multiple eval metrics are present. Will use eval_error for early stopping.
+#&gt; Will train until eval_error hasn't improved in 20 rounds.
+#&gt; 
+#&gt; [2]	train-error:0.022263	eval-error:0.021726 
+#&gt; [3]	train-error:0.033164	eval-error:0.029795 
+#&gt; [4]	train-error:0.007063	eval-error:0.006207 
+#&gt; [5]	train-error:0.005988	eval-error:0.005587 </div><div class='input'>
+# CAN'T DO THIS
+# model <- Laurae.xgb.train(train = dtrain,
+#                           watchlist = watchlist,
+#                           verbose = 1,
+#                           objective = logregobj,
+#                           metric = c(evalerror, "auc"),
+#                           tree_depth = 2,
+#                           learn_shrink = 1,
+#                           learn_threads = 1,
+#                           iteration_max = 5,
+#                           maximize = FALSE)
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -354,6 +354,19 @@ dtrain <- xgb.DMatrix(agaricus.train$data, label = agaricus.train$label)
 dtest <- xgb.DMatrix(agaricus.test$data, label = agaricus.test$label)
 watchlist <- list(train = dtrain, eval = dtest)
 
+logregobj <- function(preds, dtrain) {
+  labels <- getinfo(dtrain, "label")
+  preds <- 1/(1 + exp(-preds))
+  grad <- preds - labels
+  hess <- preds * (1 - preds)
+  return(list(grad = grad, hess = hess))
+}
+evalerror <- function(preds, dtrain) {
+  labels <- getinfo(dtrain, "label")
+  err <- as.numeric(sum(labels != (preds > 0)))/length(labels)
+  return(list(metric = "error", value = err))
+}
+
 model <- Laurae.xgb.train(train = dtrain,
                           watchlist = watchlist,
                           verbose = 1,
@@ -363,5 +376,60 @@ model <- Laurae.xgb.train(train = dtrain,
                           learn_shrink = 1,
                           learn_threads = 1,
                           iteration_max = 5)
+
+model <- Laurae.xgb.train(train = dtrain,
+                          watchlist = watchlist,
+                          verbose = 1,
+                          objective = logregobj,
+                          metric = "auc",
+                          tree_depth = 2,
+                          learn_shrink = 1,
+                          learn_threads = 1,
+                          iteration_max = 5)
+
+model <- Laurae.xgb.train(train = dtrain,
+                          watchlist = watchlist,
+                          verbose = 1,
+                          objective = "binary:logistic",
+                          metric = evalerror,
+                          tree_depth = 2,
+                          learn_shrink = 1,
+                          learn_threads = 1,
+                          iteration_max = 5,
+                          maximize = FALSE)
+
+# CAN'T DO THIS, IGNORE ANY NOT 1st METRIC
+model <- Laurae.xgb.train(train = dtrain,
+                          watchlist = watchlist,
+                          verbose = 1,
+                          objective = logregobj,
+                          metric = c("rmse", "auc"),
+                          tree_depth = 2,
+                          learn_shrink = 1,
+                          learn_threads = 1,
+                          iteration_max = 5)
+
+model <- Laurae.xgb.train(train = dtrain,
+                          watchlist = watchlist,
+                          verbose = 1,
+                          objective = logregobj,
+                          metric = evalerror,
+                          tree_depth = 2,
+                          learn_shrink = 1,
+                          learn_threads = 1,
+                          iteration_max = 5,
+                          maximize = FALSE)
+
+# CAN'T DO THIS
+# model <- Laurae.xgb.train(train = dtrain,
+#                           watchlist = watchlist,
+#                           verbose = 1,
+#                           objective = logregobj,
+#                           metric = c(evalerror, "auc"),
+#                           tree_depth = 2,
+#                           learn_shrink = 1,
+#                           learn_threads = 1,
+#                           iteration_max = 5,
+#                           maximize = FALSE)
 
 }
