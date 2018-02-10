@@ -121,7 +121,7 @@
 
 <span class='no'>param</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='kw'>max_depth</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>eta</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>nthread</span> <span class='kw'>=</span> <span class='fl'>1</span>,
               <span class='kw'>objective</span> <span class='kw'>=</span> <span class='st'>"binary:logistic"</span>, <span class='kw'>eval_metric</span> <span class='kw'>=</span> <span class='no'>evalerror_wrap</span>)
-<span class='no'>bst</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>xgboost</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/xgboost/topics/xgb.train'>xgb.train</a></span>(<span class='no'>param</span>, <span class='no'>dtrain</span>, <span class='kw'>nrounds</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='no'>watchlist</span>)</div><div class='output co'>#&gt; <span class='error'>Error in UseMethod("getinfo"): no applicable method for 'getinfo' applied to an object of class "c('double', 'numeric')"</span></div><div class='input'>
+<span class='no'>bst</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>xgboost</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/xgboost/topics/xgb.train'>xgb.train</a></span>(<span class='no'>param</span>, <span class='no'>dtrain</span>, <span class='kw'>nrounds</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='no'>watchlist</span>)</div><div class='output co'>#&gt; <span class='error'>Error in evalerror(preds, xgboost::getinfo(dtrain, "label")): could not find function "evalerror"</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -143,7 +143,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

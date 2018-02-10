@@ -4,13 +4,13 @@
 \alias{Laurae.lgb.dmat}
 \title{LightGBM Dataset generation}
 \usage{
-Laurae.lgb.dmat(data, label, missing = NA, save_names = NULL,
+Laurae.lgb.dmat(data, label = NULL, missing = NA, save_names = NULL,
   save_keep = TRUE, clean_mem = FALSE, progress_bar = TRUE, ...)
 }
 \arguments{
 \item{data}{Type: matrix or dgCMatrix or data.frame or data.table or filename, or potentially a list of any of them. When a list is provided, it generates the appropriate \code{lgb.Dataset} for all the sets. The data to convert to \code{lgb.Dataset}. RAM usage required is 2x the current \code{data} input RAM usage, and 3x for \code{data.frame} and \code{data.table} due to internal matrix conversion added before binary matrix generation.}
 
-\item{label}{Type: numeric, or a list of numeric. The label of associated rows in \code{data}.}
+\item{label}{Type: numeric, or a list of numeric. The label of associated rows in \code{data}. Use \code{NULL} for passing no labels.}
 
 \item{missing}{Type: numeric. The value used to represent missing values in \code{data}. Defaults to \code{NA} (and missing values for \code{dgCMatrix}).}
 

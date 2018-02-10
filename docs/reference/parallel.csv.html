@@ -79,7 +79,7 @@
     </div>
 
     
-    <p>Parallelizes the writing of separate CSV files (still sequential reading) in order to store them in <code>fst</code> format (also, overwrites <code><a href='http://www.rdocumentation.org/packages/fst/topics/threads_fst'>fst::threads_fst</a></code>. Requires <code>data.table</code> and <code>fst</code> packages.</p>
+    <p>Parallelizes the writing of separate CSV files (still sequential reading) in order to store them in <code>fst</code> format (also, overwrites <code><a href='http://www.fstpackage.org/reference/threads_fst.html'>fst::threads_fst</a></code>. Requires <code>data.table</code> and <code>fst</code> packages.</p>
     
 
     <pre class="usage"><span class='fu'>parallel.csv</span>(<span class='no'>file</span>, <span class='kw'>compress</span> <span class='kw'>=</span> <span class='fl'>35</span>, <span class='kw'>progress_bar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>clean_mem</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -112,7 +112,7 @@
     </tr>
     <tr>
       <th>max_threads</th>
-      <td><p>Type: numeric. The maximum number of threads allowed to adapt <code><a href='http://www.rdocumentation.org/packages/fst/topics/threads_fst'>fst::threads_fst</a></code>. Make sure the result of <code>cl</code> cores multiplicated by <code>max_threads</code> is not bigger than the number of threads in your computer. Defaults to <code>max(ifelse(is.null(cl), parallel::detectCores(), ifelse(!is.list(cl), round(parallel::detectCores() / cl), round(parallel::detectCores() / length(cl)))), 1)</code>, which means at least 1 thread, and adjust automatically the number of threads depending on the number of cores per cluster. Note that it takes the rounded value, which might over and under allocate threads.</p></td>
+      <td><p>Type: numeric. The maximum number of threads allowed to adapt <code><a href='http://www.fstpackage.org/reference/threads_fst.html'>fst::threads_fst</a></code>. Make sure the result of <code>cl</code> cores multiplicated by <code>max_threads</code> is not bigger than the number of threads in your computer. Defaults to <code>max(ifelse(is.null(cl), parallel::detectCores(), ifelse(!is.list(cl), round(parallel::detectCores() / cl), round(parallel::detectCores() / length(cl)))), 1)</code>, which means at least 1 thread, and adjust automatically the number of threads depending on the number of cores per cluster. Note that it takes the rounded value, which might over and under allocate threads.</p></td>
     </tr>
     <tr>
       <th>wkdir</th>
@@ -120,7 +120,7 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments to pass to <code><a href='http://www.rdocumentation.org/packages/fst/topics/write_fst'>fst::write.fst</a></code>.</p></td>
+      <td><p>Other arguments to pass to <code><a href='http://www.fstpackage.org/reference/write_fst.html'>fst::write.fst</a></code>.</p></td>
     </tr>
     </table>
     
@@ -161,7 +161,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

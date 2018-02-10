@@ -94,7 +94,7 @@
     </tr>
     <tr>
       <th>label</th>
-      <td><p>Type: numeric, or a list of numeric. The label of associated rows in <code>data</code>.</p></td>
+      <td><p>Type: numeric, or a list of numeric. The label of associated rows in <code>data</code>. Use <code>NULL</code> for passing no labels.</p></td>
     </tr>
     <tr>
       <th>missing</th>
@@ -151,7 +151,7 @@
                                  <span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>random_labels_3</span>,
                                  <span class='kw'>missing</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
                                  <span class='kw'>progress_bar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-                                 <span class='kw'>clean_mem</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;    |                                                  | 0 % ~calculating     |+++++++++++++++++++++++++                         | 50% ~00s             |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed = 01s</div><div class='input'>
+                                 <span class='kw'>clean_mem</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;    |                                                  | 0 % ~calculating     |+++++++++++++++++++++++++                         | 50% ~00s             |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed = 00s</div><div class='input'>
 <span class='co'># Generate xgb.DMatrix from respective elements of a list and keep only first</span>
 <span class='co'># while keeping memory usage as low as theoretically possible</span>
 <span class='no'>xgb_from_list</span> <span class='kw'>&lt;-</span> <span class='fu'>Laurae.xgb.dmat</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>random_list</span>,
@@ -180,7 +180,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

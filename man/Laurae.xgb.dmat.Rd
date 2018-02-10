@@ -10,7 +10,7 @@ Laurae.xgb.dmat(data, label, missing = NA, save_names = NULL,
 \arguments{
 \item{data}{Type: matrix or dgCMatrix or data.frame or data.table or filename, or potentially a list of any of them. When a list is provided, it generates the appropriate \code{xgb.DMatrix} for all the sets. The data to convert to \code{xgb.DMatrix}. RAM usage required is 2x the current \code{data} input RAM usage, and 3x for \code{data.frame} and \code{data.table} due to internal matrix conversion added before binary matrix generation.}
 
-\item{label}{Type: numeric, or a list of numeric. The label of associated rows in \code{data}.}
+\item{label}{Type: numeric, or a list of numeric. The label of associated rows in \code{data}. Use \code{NULL} for passing no labels.}
 
 \item{missing}{Type: numeric. The value used to represent missing values in \code{data}. Defaults to \code{NA} (and missing values for \code{dgCMatrix}).}
 
